@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SampleTest\Unit;
 
@@ -10,14 +10,14 @@ use Sample\Hello\SampleClass;
  */
 class SampleClassTest extends TestCase
 {
-    public function testSampleClassConstruct()
+    public function testSampleClassConstruct(): void
     {
         $sampleClass = new SampleClass();
 
         $this->assertInstanceOf(SampleClass::class, $sampleClass);
     }
 
-    public function testSampleClassSampleMethod()
+    public function testSampleClassSampleMethod(): void
     {
         $sampleClass = new SampleClass();
 
