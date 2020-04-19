@@ -11,6 +11,10 @@ vendors-install:
 dump-autoload:
 	docker-compose run  --rm --no-deps php-cli composer dump-autoload
 
+## Runs console application
+run:
+	docker-compose run  --rm --no-deps php-cli php src/index.php
+
 ## Runs unit tests
 unit-tests:
 	docker-compose run  --rm --no-deps php-cli ./vendor/bin/phpunit --no-coverage --stop-on-error --stop-on-failure --testsuite Unit
