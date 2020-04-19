@@ -1,6 +1,23 @@
-# Docker / PHP 7.4 console / composer / phpunit 
+# Rock paper scissors game
 
-Blank docker project for console php 7.4 projects with composer and phpunit.
+Php console implementation of rock paper scissors game
+
+## Game description
+
+In this implementation of the game, two players with different strategies play against each other.
+
+ - Scissors beat the paper
+
+ - Stone beats scissors
+ - Paper beats a stone
+ - If both players choose the same thing, it's a draw.
+
+Two players with the following strategies are implemented:
+ - Player А: selects paper each time
+ - Player B: makes a random choice every time 
+
+Players compete 100 times against each other.
+As a result, totals summary and each game result is displayed.
 
 ## Prerequisites
 
