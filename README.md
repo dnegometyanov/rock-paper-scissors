@@ -10,7 +10,7 @@ Blank docker project for console php 7.4 projects with composer and phpunit.
 
 Install Docker and optionally Make utility.
 
-Commands from Makefile may be executed manually in case Make utility is not installed.
+Commands from Makefile could be executed manually in case Make utility is not installed.
     
 ## Run application
 
