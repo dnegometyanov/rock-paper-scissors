@@ -1,8 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Game\Player;
+namespace Game\Model\Player;
 
-use Game\Item\ItemInterface;
+use Game\Gameplay\GameplayStrategy\GameplayStrategyInterface;
+use Game\Model\MoveOption\MoveOptionInterface;
 
 class Player implements PlayerInterface
 {
@@ -12,20 +13,20 @@ class Player implements PlayerInterface
     private string $name;
 
     /**
-     * @var PlayerStrategyInterface
+     * @var GameplayStrategyInterface
      */
-    private PlayerStrategyInterface $playerStrategy;
+    private GameplayStrategyInterface $playerStrategy;
 
-    public function __construct(string $name, PlayerStrategyInterface $playerStrategy)
+    public function __construct(string $name, GameplayStrategyInterface $playerStrategy)
     {
         $this->name           = $name;
         $this->playerStrategy = $playerStrategy;
     }
 
     /**
-     * @return ItemInterface
+     * @return MoveOptionInterface
      */
-    public function selectItem(): ItemInterface
+    public function selectItem(): MoveOptionInterface
     {
         return $this->playerStrategy->selectItem();
     }

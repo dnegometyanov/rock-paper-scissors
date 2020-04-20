@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Game\Item;
+namespace Game\Model\MoveOption;
 
-class ItemCollection
+class MoveOptionCollection
 {
     private array $items;
 
@@ -11,7 +11,7 @@ class ItemCollection
         $this->items = [];
     }
 
-    public function addItem(ItemInterface $item): ItemCollection
+    public function addMoveOption(MoveOptionInterface $item): MoveOptionCollection
     {
         $this->items[] = $item;
 
@@ -19,7 +19,7 @@ class ItemCollection
     }
 
     /**
-     * @return Item[]
+     * @return MoveOption[]
      */
     public function getItems(): array
     {
@@ -29,10 +29,10 @@ class ItemCollection
     /**
      * @param string $itemName
      *
-     * @return Item
+     * @return MoveOption
      */
-    public function findItem(string $itemName): Item
+    public function findItem(string $itemName): MoveOption
     {
-        return current(array_filter( $this->items, fn (Item $item) => $itemName === $item->getName()));
+        return current(array_filter( $this->items, fn (MoveOption $item) => $itemName === $item->getName()));
     }
 }

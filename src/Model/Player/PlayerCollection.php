@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Game\Player;
+namespace Game\Model\Player;
 
 class PlayerCollection
 {

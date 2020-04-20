@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Game\Game;
+namespace Game\Gameplay;
 
-use Game\Player\Player;
-use Game\Player\PlayerInterface;
+use Game\Model\Player\Player;
+use Game\Model\Player\PlayerInterface;
 
 class Rules
 {

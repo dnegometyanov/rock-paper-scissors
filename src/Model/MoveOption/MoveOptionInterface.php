@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Game\Item;
+namespace Game\Model\MoveOption;
 
-interface ItemInterface
+interface MoveOptionInterface
 {
     public function getName(): string;
 }

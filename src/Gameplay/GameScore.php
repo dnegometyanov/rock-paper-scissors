@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Game\Game;
+namespace Game\Gameplay;
 
-use Game\Item\ItemInterface;
-use Game\Player\PlayerInterface;
+use Game\Model\MoveOption\MoveOptionInterface;
+use Game\Model\Player\PlayerInterface;
 
 class GameScore
 {
@@ -15,9 +15,9 @@ class GameScore
     }
 
     /**
-     * @var ItemInterface
+     * @var MoveOptionInterface
      */
-    private ItemInterface $item;
+    private MoveOptionInterface $item;
 
     public function addPlayerGameScore(PlayerGameScore $playerGameScore): void
     {

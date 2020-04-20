@@ -1,8 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Game\Player;
+namespace Game\Model\Player;
 
-use Game\Item\ItemCollection;
+use Game\Gameplay\GameplayStrategy\GameplayStrategyFactory;
+use Game\Model\MoveOption\MoveOptionCollection;
 
 class PlayerCollectionFactory
 {
@@ -12,32 +13,33 @@ class PlayerCollectionFactory
     private PlayerFactory $playerFactory;
 
     /**
-     * @var PlayerStrategyFactory
+     * @var GameplayStrategyFactory
      */
-    private PlayerStrategyFactory $playerStrategyFactory;
+    private GameplayStrategyFactory $gameplayStrategyFactory;
 
-    public function __construct(PlayerFactory $playerFactory, PlayerStrategyFactory $playerStrategyFactory)
+    public function __construct(PlayerFactory $playerFactory, GameplayStrategyFactory $playerStrategyFactory)
     {
-        $this->playerFactory         = $playerFactory;
-        $this->playerStrategyFactory = $playerStrategyFactory;
+        $this->playerFactory           = $playerFactory;
+        $this->gameplayStrategyFactory = $playerStrategyFactory;
     }
 
     /**
      * @param array $playerStrategyConfig
-     * @param ItemCollection $itemCollection
+     * @param MoveOptionCollection $itemCollection
      *
      * @return PlayerCollection
      */
-    public function create(array $playerStrategyConfig, ItemCollection $itemCollection): PlayerCollection
+    public function create(array $playerStrategyConfig, MoveOptionCollection $itemCollection): PlayerCollection
     {
         $playerNames = array_keys($playerStrategyConfig);
+
         return array_reduce(
             $playerNames,
             fn (PlayerCollection $playerCollection, string $playerName) =>
                 $playerCollection->addPlayer(
                     $this->playerFactory->createPlayer(
                         $playerName,
-                        $this->playerStrategyFactory->createStrategy(
+                        $this->gameplayStrategyFactory->createStrategy(
                             $playerStrategyConfig[$playerName]['strategy_name'],
                             $itemCollection,
                             $playerStrategyConfig[$playerName]['strategy_config'],

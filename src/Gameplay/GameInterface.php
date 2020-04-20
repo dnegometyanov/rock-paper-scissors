@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Game\Game;
+namespace Game\Gameplay;
 
 interface GameInterface
 {

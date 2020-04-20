@@ -1,12 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Game\Player;
+namespace Game\Model\Player;
 
-use Game\Item\ItemCollection as ItemCollectionAlias;
-use Game\Item\ItemInterface;
+use Game\Gameplay\GameplayStrategy\GameplayStrategyInterface;
+use Game\Model\MoveOption\MoveOptionCollection as ItemCollectionAlias;
+use Game\Model\MoveOption\MoveOptionInterface;
 use Game\Util\WeightedRandom;
 
-class ProbabilityPlayerStrategy implements PlayerStrategyInterface
+class ProbabilityGameplayStrategy implements GameplayStrategyInterface
 {
     /**
      * @var ItemCollectionAlias
@@ -25,9 +26,9 @@ class ProbabilityPlayerStrategy implements PlayerStrategyInterface
     }
 
     /**
-     * @return ItemInterface
+     * @return MoveOptionInterface
      */
-    public function selectItem(): ItemInterface
+    public function selectItem(): MoveOptionInterface
     {
         $weightedRandomItemName = WeightedRandom::getWeightedRandomElement($this->probabilityStrategyConfig);
 
