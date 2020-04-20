@@ -22,7 +22,7 @@ $playerStrategyFactory   = new GameplayStrategyFactory();
 $playerCollectionFactory = new PlayerCollectionFactory($playerFactory, $playerStrategyFactory);
 $playerCollection        = $playerCollectionFactory->create($config->getPlayerStrategiesConfig(), $itemCollection);
 
-//var_dump($playerCollection->findPlayer(Config::PLAYER_A));
+var_dump($playerCollection->findPlayer(Config::PLAYER_A));
 
 //$playerCollectionFactory = new PlayerOldCollectionFactory();
 //$playerCollection = $playerCollectionFactory->create($config->getPlayerStrategiesConfig(), $playerStrategyCollection);
