@@ -34,7 +34,7 @@ class PlayerCollection
      *
      * @return PlayerInterface
      */
-    public function findPlayerStrategy(string $playerName): PlayerInterface
+    public function findPlayer(string $playerName): PlayerInterface
     {
         return current(array_filter( $this->players, fn (PlayerInterface $player) => $playerName === $player->getName()));
     }

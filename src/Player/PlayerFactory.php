@@ -6,6 +6,6 @@ class PlayerFactory
 {
     public function createPlayer(string $playerName, PlayerStrategyInterface $playerStrategy): PlayerInterface
     {
-        return new Player();
+        return new Player($playerName, $playerStrategy);
     }
 }

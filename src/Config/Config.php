@@ -50,11 +50,11 @@ class Config
 
     const PLAYER_STRATEGIES = [
         self::PLAYER_A => [
-            'strategy_name' => self::STRATEGY_PROBABILITY,
+            'strategy_name'   => self::STRATEGY_PROBABILITY,
             'strategy_config' => self::STRATEGY_PROBABILITY_ALWAYS_PAPER_CONFIG,
         ],
         self::PLAYER_B => [
-            'strategy_name' => self::STRATEGY_PROBABILITY,
+            'strategy_name'   => self::STRATEGY_PROBABILITY,
             'strategy_config' => self::STRATEGY_PROBABILITY_RANDOM_CONFIG,
         ]
     ];

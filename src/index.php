@@ -5,7 +5,7 @@ namespace Game;
 use Game\Config\Config;
 use Game\Item\ItemCollectionFactory;
 use Game\Player\PlayerCollectionFactory;
-use Game\Player\PlayerStrategyCollectionFactory;
+use Game\Player\PlayerFactory;
 use Game\Player\PlayerStrategyFactory;
 
 require 'vendor/autoload.php';
@@ -17,11 +17,15 @@ $itemCollection        = $itemCollectionFactory->create($config->getItemNames())
 
 //var_dump($itemCollection->findItem(Config::ITEM_SCISSORS));
 
-$playerStrategyCollectionFactory = new PlayerStrategyCollectionFactory();
-$playerStrategyCollection = $playerStrategyCollectionFactory->create($config->getPlayerStrategiesConfig(), $itemCollection);
+$playerFactory           = new PlayerFactory();
+$playerStrategyFactory   = new PlayerStrategyFactory();
+$playerCollectionFactory = new PlayerCollectionFactory($playerFactory, $playerStrategyFactory);
+$playerCollection        = $playerCollectionFactory->create($config->getPlayerStrategiesConfig(), $itemCollection);
 
-$playerCollectionFactory = new PlayerCollectionFactory();
-$playerCollection = $playerCollectionFactory->create($config->getPlayerStrategiesConfig(), $playerStrategyCollection);
+//var_dump($playerCollection->findPlayer(Config::PLAYER_A));
+
+//$playerCollectionFactory = new PlayerOldCollectionFactory();
+//$playerCollection = $playerCollectionFactory->create($config->getPlayerStrategiesConfig(), $playerStrategyCollection);
 
 //
 //$players = array_map(
