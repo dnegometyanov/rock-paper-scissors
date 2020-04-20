@@ -12,8 +12,9 @@ class GameplayStrategyFactory
      * @param MoveOptionCollection $itemCollection
      * @param array $strategyConfig
      *
-     * @return GameplayStrategyInterface
      * @throws \Exception
+     *
+     * @return GameplayStrategyInterface
      */
     public function createStrategy(string $strategyName, MoveOptionCollection $itemCollection, array $strategyConfig): GameplayStrategyInterface
     {
