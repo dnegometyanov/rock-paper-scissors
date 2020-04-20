@@ -12,12 +12,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Sample\\": "src/"
+      "Game\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "SampleTest\\": "tests/"
+      "GameTest\\": "tests/"
     }
   },
   "require-dev": {
