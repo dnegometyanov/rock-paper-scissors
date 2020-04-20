@@ -2,25 +2,25 @@
 
 namespace Game\Gameplay;
 
-use Game\Model\MoveOption\MoveOptionInterface;
-use Game\Model\Player\PlayerInterface;
+use Game\Model\MoveOption\MoveOption;
+use Game\Model\Player\Player;
 
 class PlayerGameScore
 {
     /**
-     * @var PlayerInterface
+     * @var Player
      */
-    private PlayerInterface $player;
+    private Player $player;
 
     private int $score;
 
     /**
-     * @var MoveOptionInterface
+     * @var MoveOption
      */
-    private MoveOptionInterface $item;
+    private MoveOption $item;
 
     public function __construct(
-        PlayerInterface $player,
+        Player $player,
         int $score,
         int $rank
     )
@@ -34,9 +34,9 @@ class PlayerGameScore
     }
 
     /**
-     * @return PlayerInterface
+     * @return Player
      */
-    public function getPlayer(): PlayerInterface
+    public function getPlayer(): Player
     {
         return $this->player;
     }

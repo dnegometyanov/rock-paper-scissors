@@ -3,7 +3,7 @@
 namespace Game\Gameplay;
 
 use Game\Model\Player\Player;
-use Game\Model\Player\PlayerInterface;
+use Game\Model\Player\Player;
 
 class Rules
 {
@@ -38,10 +38,10 @@ class Rules
         }
     }
 
-    public function selectWinnerOfTwo(Move $moveOfPlayer, Move $moveOfCompetitor): PlayerInterface
+    public function selectWinnerOfTwo(Move $moveOfPlayer, Move $moveOfCompetitor): Player
     {
-        $playerItemName     = $moveOfPlayer->getItem()->getName();
-        $competitorItemName = $moveOfCompetitor->getItem()->getName();
+        $playerItemName     = $moveOfPlayer->getMoveOption()->getName();
+        $competitorItemName = $moveOfCompetitor->getMoveOption()->getName();
         if (in_array($competitorItemName, $this->rulesItemBeat[$playerItemName])) {
             return $moveOfPlayer->getPlayer();
         }

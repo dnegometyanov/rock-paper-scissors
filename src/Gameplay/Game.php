@@ -2,7 +2,7 @@
 
 namespace Game\Gameplay;
 
-use Game\Model\MoveOption\MoveOptionInterface;
+use Game\Model\MoveOption\MoveOption;
 use Game\Model\Player\PlayerCollection;
 
 class Game implements GameInterface
@@ -14,7 +14,7 @@ class Game implements GameInterface
     {
     }
 
-    public function play(): MoveOptionInterface
+    public function play(): MoveOption
     {
         return $this->playerStrategy->selectItem();
     }

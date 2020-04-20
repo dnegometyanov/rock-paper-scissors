@@ -3,29 +3,47 @@
 namespace Game;
 
 use Game\Config\Config;
+use Game\Gameplay\GameplayStrategy\GameplayStrategyCollectionFactory;
 use Game\Gameplay\GameplayStrategy\GameplayStrategyFactory;
+use Game\Gameplay\PlayerGameplayStrategyCollectionFactory;
 use Game\Model\MoveOption\MoveOptionCollectionFactory;
 use Game\Model\Player\PlayerCollectionFactory;
-use Game\Model\Player\PlayerFactory;
 
 require 'vendor/autoload.php';
 
 $config = new Config();
 
-$itemCollectionFactory = new MoveOptionCollectionFactory();
-$itemCollection        = $itemCollectionFactory->create($config->getItemNames());
+$moveOptionCollectionFactory = new MoveOptionCollectionFactory();
+$moveOptionCollection        = $moveOptionCollectionFactory->create($config->getMoveOptionNamesConfig());
 
 //var_dump($itemCollection->findItem(Config::ITEM_SCISSORS));
 
-$playerFactory           = new PlayerFactory();
-$playerStrategyFactory   = new GameplayStrategyFactory();
-$playerCollectionFactory = new PlayerCollectionFactory($playerFactory, $playerStrategyFactory);
-$playerCollection        = $playerCollectionFactory->create($config->getPlayerStrategiesConfig(), $itemCollection);
+$playerCollectionFactory = new PlayerCollectionFactory();
+$playerCollection        = $playerCollectionFactory->create($config->getPlayerNamesConfig());
 
-var_dump($playerCollection->findPlayer(Config::PLAYER_A));
+$gameplayStrategyFactory = new GameplayStrategyFactory($moveOptionCollection);
 
-//$playerCollectionFactory = new PlayerOldCollectionFactory();
-//$playerCollection = $playerCollectionFactory->create($config->getPlayerStrategiesConfig(), $playerStrategyCollection);
+$gameplayStrategyCollectionFactory = new GameplayStrategyCollectionFactory(
+    $gameplayStrategyFactory,
+    $moveOptionCollection,
+);
+
+//var_dump($config->getStrategiesConfig()); exit;
+
+$gameplayStrategyCollection = $gameplayStrategyCollectionFactory->createGameplayStrategyCollection(
+    $config->getStrategiesConfig()
+);
+
+//var_dump($gameplayStrategyCollection); exit;
+
+$playerGameplayStrategyCollectionFactory = new PlayerGameplayStrategyCollectionFactory(
+    $playerCollection,
+    $gameplayStrategyCollection,
+    $config->getPlayerStrategiesConfig()
+);
+$playerGameplayStrategyCollection = $playerGameplayStrategyCollectionFactory->createPlayerGameplayStrategyCollection();
+
+var_dump($playerGameplayStrategyCollection); exit;
 
 //
 //$players = array_map(

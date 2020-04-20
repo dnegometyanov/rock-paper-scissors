@@ -5,7 +5,7 @@ namespace Game\Model\Player;
 class PlayerCollection
 {
     /**
-     * @var PlayerInterface[]
+     * @var Player[]
      */
     private array $players;
 
@@ -14,7 +14,7 @@ class PlayerCollection
         $this->players = [];
     }
 
-    public function addPlayer(PlayerInterface $playerStrategy): PlayerCollection
+    public function addPlayer(Player $playerStrategy): PlayerCollection
     {
         $this->players[] = $playerStrategy;
 
@@ -22,7 +22,7 @@ class PlayerCollection
     }
 
     /**
-     * @return PlayerInterface[]
+     * @return Player[]
      */
     public function getPlayers(): array
     {
@@ -32,10 +32,10 @@ class PlayerCollection
     /**
      * @param string $playerName
      *
-     * @return PlayerInterface
+     * @return Player
      */
-    public function findPlayer(string $playerName): PlayerInterface
+    public function findPlayer(string $playerName): Player
     {
-        return current(array_filter( $this->players, fn (PlayerInterface $player) => $playerName === $player->getName()));
+        return current(array_filter( $this->players, fn (Player $player) => $playerName === $player->getName()));
     }
 }

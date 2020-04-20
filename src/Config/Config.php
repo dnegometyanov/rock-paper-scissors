@@ -4,25 +4,25 @@ namespace Game\Config;
 
 class Config
 {
-    const ITEM_ROCK     = 'Rock';
-    const ITEM_PAPER    = 'Paper';
-    const ITEM_SCISSORS = 'Scissors';
+    const MOVE_OPTION_ROCK     = 'Rock';
+    const MOVE_OPTION_PAPER    = 'Paper';
+    const MOVE_OPTION_SCISSORS = 'Scissors';
 
-    const ITEMS = [
-        self::ITEM_ROCK,
-        self::ITEM_PAPER,
-        self::ITEM_SCISSORS,
+    const MOVE_OPTIONS = [
+        self::MOVE_OPTION_ROCK,
+        self::MOVE_OPTION_PAPER,
+        self::MOVE_OPTION_SCISSORS,
     ];
 
-    const RULES_ITEMS_BEAT = [
-        self::ITEM_ROCK => [
-            self::ITEM_SCISSORS,
+    const RULES_MOVE_OPTION_BEAT = [
+        self::MOVE_OPTION_ROCK => [
+            self::MOVE_OPTION_SCISSORS,
         ],
-        self::ITEM_PAPER => [
-            self::ITEM_ROCK,
+        self::MOVE_OPTION_PAPER => [
+            self::MOVE_OPTION_ROCK,
         ],
-        self::ITEM_SCISSORS => [
-            self::ITEM_PAPER,
+        self::MOVE_OPTION_SCISSORS => [
+            self::MOVE_OPTION_PAPER,
         ],
     ];
 
@@ -34,39 +34,60 @@ class Config
         self::PLAYER_B,
     ];
 
-    const STRATEGY_PROBABILITY = 'strategy-probability';
+    const STRATEGY_TYPE_PROBABILITY = 'strategy-probability';
 
-    const STRATEGY_PROBABILITY_ALWAYS_PAPER_CONFIG = [
-        self::ITEM_ROCK     => 0,
-        self::ITEM_PAPER    => 100,
-        self::ITEM_SCISSORS => 0,
-    ];
+    const STRATEGY_NAME_PROBABILITY_ALWAYS_PAPER = 'probability-always-paper';
 
-    const STRATEGY_PROBABILITY_RANDOM_CONFIG = [
-        self::ITEM_ROCK     => 33,
-        self::ITEM_PAPER    => 33,
-        self::ITEM_SCISSORS => 33,
-    ];
-
-    const PLAYER_STRATEGIES = [
-        self::PLAYER_A => [
-            'strategy_name'   => self::STRATEGY_PROBABILITY,
-            'strategy_config' => self::STRATEGY_PROBABILITY_ALWAYS_PAPER_CONFIG,
-        ],
-        self::PLAYER_B => [
-            'strategy_name'   => self::STRATEGY_PROBABILITY,
-            'strategy_config' => self::STRATEGY_PROBABILITY_RANDOM_CONFIG,
+    const STRATEGY_PROBABILITY_ALWAYS_PAPER = [
+        'strategy_name'   => self::STRATEGY_NAME_PROBABILITY_ALWAYS_PAPER,
+        'strategy_type'   => self::STRATEGY_TYPE_PROBABILITY,
+        'strategy_config' => [
+            self::MOVE_OPTION_ROCK     => 0,
+            self::MOVE_OPTION_PAPER    => 100,
+            self::MOVE_OPTION_SCISSORS => 0,
         ]
     ];
 
-    public function getItemNames() :array
+    const STRATEGY_NAME_PROBABILITY_RANDOM = 'probability-random';
+
+    const STRATEGY_PROBABILITY_RANDOM = [
+        'strategy_name'   => self::STRATEGY_NAME_PROBABILITY_RANDOM,
+        'strategy_type'   => self::STRATEGY_TYPE_PROBABILITY,
+        'strategy_config' => [
+            self::MOVE_OPTION_ROCK     => 33,
+            self::MOVE_OPTION_PAPER    => 33,
+            self::MOVE_OPTION_SCISSORS => 33,
+        ]
+    ];
+
+    const STRATEGIES = [
+        self::STRATEGY_PROBABILITY_ALWAYS_PAPER,
+        self::STRATEGY_PROBABILITY_RANDOM,
+    ];
+
+    const PLAYER_STRATEGIES = [
+        self::PLAYER_A => self::STRATEGY_NAME_PROBABILITY_ALWAYS_PAPER,
+        self::PLAYER_B => self::STRATEGY_NAME_PROBABILITY_RANDOM,
+    ];
+
+    public function getMoveOptionNamesConfig() :array
     {
-        return self::ITEMS;
+        return self::MOVE_OPTIONS;
     }
 
-    public function getPlayerNames() :array
+    public function getRulesMoveOptionBeatConfig() :array
+    {
+        return self::RULES_MOVE_OPTION_BEAT;
+    }
+
+    public function getPlayerNamesConfig() :array
     {
         return self::PLAYERS;
+    }
+
+    public function getStrategiesConfig() :array
+    {
+        return self::STRATEGIES;
     }
 
     public function getPlayerStrategiesConfig() :array

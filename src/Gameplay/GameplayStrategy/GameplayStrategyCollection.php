@@ -5,37 +5,29 @@ namespace Game\Gameplay\GameplayStrategy;
 class GameplayStrategyCollection
 {
     /**
-     * @var GameplayStrategyInterface[]
+     * @var array
      */
-    private array $playerStrategies;
+    private array $gameplayStrategies;
 
     public function __construct()
     {
-        $this->playerStrategies = [];
+        $this->gameplayStrategies = [];
     }
 
-    public function addPlayerStrategy(GameplayStrategyInterface $playerStrategy): GameplayStrategyCollection
+    public function addGameplayStrategy(GameplayStrategyInterface $gameplayStrategy): GameplayStrategyCollection
     {
-        $this->playerStrategies[] = $playerStrategy;
+        $this->gameplayStrategies[$gameplayStrategy->getName()] = $gameplayStrategy;
 
         return $this;
     }
 
     /**
-     * @return GameplayStrategyInterface[]
-     */
-    public function getPlayerStrategies(): array
-    {
-        return $this->playerStrategies;
-    }
-
-    /**
-     * @param string $playerStrategyName
+     * @param string $gameplayStrategyName
      *
      * @return GameplayStrategyInterface
      */
-    public function findPlayerStrategy(string $playerStrategyName): GameplayStrategyInterface
+    public function findGameplayStrategy(string $gameplayStrategyName): GameplayStrategyInterface
     {
-        return current(array_filter( $this->playerStrategies, fn (GameplayStrategyInterface $playerStrategy) => $playerStrategyName === $playerStrategy->getName()));
+        return $this->gameplayStrategies[$gameplayStrategyName];
     }
 }

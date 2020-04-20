@@ -2,7 +2,7 @@
 
 namespace Game\Model\MoveOption;
 
-class MoveOption implements MoveOptionInterface
+class MoveOption
 {
     /**
      * @var string

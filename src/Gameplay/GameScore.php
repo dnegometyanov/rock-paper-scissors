@@ -2,8 +2,8 @@
 
 namespace Game\Gameplay;
 
-use Game\Model\MoveOption\MoveOptionInterface;
-use Game\Model\Player\PlayerInterface;
+use Game\Model\MoveOption\MoveOption;
+use Game\Model\Player\Player;
 
 class GameScore
 {
@@ -15,16 +15,16 @@ class GameScore
     }
 
     /**
-     * @var MoveOptionInterface
+     * @var MoveOption
      */
-    private MoveOptionInterface $item;
+    private MoveOption $item;
 
     public function addPlayerGameScore(PlayerGameScore $playerGameScore): void
     {
         $this->gameScore[$playerGameScore->getPlayer()->getName()] = $playerGameScore;
     }
 
-    public function findPlayerGameScore(PlayerInterface $player): PlayerGameScore
+    public function findPlayerGameScore(Player $player): PlayerGameScore
     {
         return $this->gameScore[$player->getName()];
     }

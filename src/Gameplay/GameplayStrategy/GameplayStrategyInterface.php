@@ -2,11 +2,13 @@
 
 namespace Game\Gameplay\GameplayStrategy;
 
-use Game\Model\MoveOption\MoveOptionInterface;
+use Game\Model\MoveOption\MoveOption;
 
 interface GameplayStrategyInterface
 {
-    public function selectItem(): MoveOptionInterface;
+    public function selectMoveOption(): MoveOption;
 
-    public static function getName(): string;
+    public function getName(): string;
+
+    public static function getType(): string;
 }

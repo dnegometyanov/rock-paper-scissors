@@ -11,7 +11,7 @@ class MoveOptionCollection
         $this->items = [];
     }
 
-    public function addMoveOption(MoveOptionInterface $item): MoveOptionCollection
+    public function addMoveOption(MoveOption $item): MoveOptionCollection
     {
         $this->items[] = $item;
 

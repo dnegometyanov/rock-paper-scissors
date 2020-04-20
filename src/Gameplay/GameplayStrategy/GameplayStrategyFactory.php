@@ -3,27 +3,38 @@
 namespace Game\Gameplay\GameplayStrategy;
 
 use Game\Model\MoveOption\MoveOptionCollection;
-use Game\Model\Player\ProbabilityGameplayStrategy;
 
 class GameplayStrategyFactory
 {
     /**
+     * @var MoveOptionCollection
+     */
+    private MoveOptionCollection $moveOptionCollection;
+
+    public function __construct(
+        MoveOptionCollection $moveOptionCollection
+    )
+    {
+        $this->moveOptionCollection = $moveOptionCollection;
+    }
+
+    /**
+     * @param string $strategyType
      * @param string $strategyName
-     * @param MoveOptionCollection $itemCollection
      * @param array $strategyConfig
      *
      * @throws \Exception
      *
      * @return GameplayStrategyInterface
      */
-    public function createStrategy(string $strategyName, MoveOptionCollection $itemCollection, array $strategyConfig): GameplayStrategyInterface
+    public function createStrategy(string $strategyType, string $strategyName, array $strategyConfig): GameplayStrategyInterface
     {
-        switch ($strategyName) {
-            case ProbabilityGameplayStrategy::getName():
-                return new ProbabilityGameplayStrategy($itemCollection, $strategyConfig);
+        switch ($strategyType) {
+            case ProbabilityGameplayStrategy::getType():
+                return new ProbabilityGameplayStrategy($strategyName, $this->moveOptionCollection, $strategyConfig);
                 break;
             default:
-                throw new \Exception(sprintf('Strategy %s not found', $strategyName)); // TODO custom exception
+                throw new \Exception(sprintf('Strategy %s not found', $strategyType)); // TODO custom exception
         }
     }
 }
