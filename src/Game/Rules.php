@@ -33,7 +33,7 @@ class Rules
             for ($idxMoveOfCompetitor = $idxMoveOfPlayer + 1; $idxMoveOfCompetitor < count($moves); $idxMoveOfCompetitor++) {
                 $moveOfCompetitor = $moves[$idxMoveOfCompetitor];
                 $winnerOfTwo      = $this->selectWinnerOfTwo($moveOfPlayer, $moveOfCompetitor);
-                $gameScore->findPlayerGameScore($winnerOfTwo)->victory();
+                $gameScore->findPlayerGameScore($winnerOfTwo)->incrementScore();
             }
         }
     }

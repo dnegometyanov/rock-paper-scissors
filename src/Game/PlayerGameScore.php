@@ -14,8 +14,6 @@ class PlayerGameScore
 
     private int $score;
 
-    private int $rank;
-
     /**
      * @var ItemInterface
      */
@@ -29,12 +27,10 @@ class PlayerGameScore
     {
         $this->player = $player;
         $this->score  = $score;
-        $this->score  = $rank;
     }
 
-    public function victory(): void {
+    public function incrementScore(): void {
         $this->score++;
-        $this->rank--;
     }
 
     /**

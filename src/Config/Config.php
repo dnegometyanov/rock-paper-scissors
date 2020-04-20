@@ -50,24 +50,26 @@ class Config
 
     const PLAYER_STRATEGIES = [
         self::PLAYER_A => [
-            self::STRATEGY_PROBABILITY => self::STRATEGY_PROBABILITY_ALWAYS_PAPER_CONFIG
+            'strategy_name' => self::STRATEGY_PROBABILITY,
+            'strategy_config' => self::STRATEGY_PROBABILITY_ALWAYS_PAPER_CONFIG,
         ],
         self::PLAYER_B => [
-            self::STRATEGY_PROBABILITY => self::STRATEGY_PROBABILITY_RANDOM_CONFIG,
+            'strategy_name' => self::STRATEGY_PROBABILITY,
+            'strategy_config' => self::STRATEGY_PROBABILITY_RANDOM_CONFIG,
         ]
     ];
 
-    public function getItems() :array
+    public function getItemNames() :array
     {
         return self::ITEMS;
     }
 
-    public function getPlayers() :array
+    public function getPlayerNames() :array
     {
         return self::PLAYERS;
     }
 
-    public function getPlayerStrategies() :array
+    public function getPlayerStrategiesConfig() :array
     {
         return self::PLAYER_STRATEGIES;
     }

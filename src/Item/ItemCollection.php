@@ -10,6 +10,7 @@ class ItemCollection
     {
         $this->items = [];
     }
+
     public function addItem(ItemInterface $item): ItemCollection
     {
         $this->items[] = $item;

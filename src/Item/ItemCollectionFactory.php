@@ -5,25 +5,14 @@ namespace Game\Item;
 class ItemCollectionFactory
 {
     /**
-     * @var string[]
-     */
-    private array $itemNames;
-
-    /**
-     * @param string[] $itemNames List of existing item names
-     */
-    public function __construct(array $itemNames)
-    {
-        $this->itemNames = $itemNames;
-    }
-
-    /**
+     * @param array $itemNames
+     *
      * @return ItemCollection
      */
-    public function create(): ItemCollection
+    public function create(array $itemNames): ItemCollection
     {
         return array_reduce(
-            $this->itemNames,
+            $itemNames,
             fn (ItemCollection $itemCollection, string $itemName) => $itemCollection->addItem(new Item($itemName)),
             new ItemCollection()
         );
