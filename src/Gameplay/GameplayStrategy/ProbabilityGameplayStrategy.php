@@ -27,7 +27,7 @@ class ProbabilityGameplayStrategy implements GameplayStrategyInterface
     {
         $this->name                       = $name;
         $this->itemCollection             = $moveOptionCollection;
-        $this->probabilitiesOfMoveOptions = $strategyConfig;
+        $this->probabilitiesOfMoveOptions = $strategyConfig['strategy_config'];
     }
 
     /**
@@ -37,7 +37,7 @@ class ProbabilityGameplayStrategy implements GameplayStrategyInterface
     {
         $weightedRandomMoveOptionName = WeightedRandom::getWeightedRandomElement($this->probabilitiesOfMoveOptions);
 
-        return $this->itemCollection->findItem($weightedRandomMoveOptionName);
+        return $this->itemCollection->findMoveOption($weightedRandomMoveOptionName);
     }
 
     /**

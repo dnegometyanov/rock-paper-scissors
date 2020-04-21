@@ -3,9 +3,11 @@
 namespace Game;
 
 use Game\Config\Config;
+use Game\Gameplay\Game;
 use Game\Gameplay\GameplayStrategy\GameplayStrategyCollectionFactory;
 use Game\Gameplay\GameplayStrategy\GameplayStrategyFactory;
 use Game\Gameplay\PlayerGameplayStrategyCollectionFactory;
+use Game\Gameplay\Rules;
 use Game\Model\MoveOption\MoveOptionCollectionFactory;
 use Game\Model\Player\PlayerCollectionFactory;
 
@@ -43,7 +45,13 @@ $playerGameplayStrategyCollectionFactory = new PlayerGameplayStrategyCollectionF
 );
 $playerGameplayStrategyCollection = $playerGameplayStrategyCollectionFactory->createPlayerGameplayStrategyCollection();
 
-var_dump($playerGameplayStrategyCollection); exit;
+//var_dump($playerGameplayStrategyCollection); exit;
+
+$rules  = new Rules($config->getRulesMoveOptionBeatConfig());
+$game   = new Game($playerGameplayStrategyCollection, $rules);
+$result = $game->play();
+
+var_dump($result);
 
 //
 //$players = array_map(

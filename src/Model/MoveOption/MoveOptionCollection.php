@@ -4,16 +4,19 @@ namespace Game\Model\MoveOption;
 
 class MoveOptionCollection
 {
-    private array $items;
+    /**
+     * @var array
+     */
+    private array $moveOptions;
 
     public function __construct()
     {
-        $this->items = [];
+        $this->moveOptions = [];
     }
 
-    public function addMoveOption(MoveOption $item): MoveOptionCollection
+    public function addMoveOption(MoveOption $moveOption): MoveOptionCollection
     {
-        $this->items[] = $item;
+        $this->moveOptions[$moveOption->getName()] = $moveOption;
 
         return $this;
     }
@@ -21,18 +24,18 @@ class MoveOptionCollection
     /**
      * @return MoveOption[]
      */
-    public function getItems(): array
+    public function getMoveOptions(): array
     {
-        return $this->items;
+        return $this->moveOptions;
     }
 
     /**
-     * @param string $itemName
+     * @param string $moveOptionName
      *
      * @return MoveOption
      */
-    public function findItem(string $itemName): MoveOption
+    public function findMoveOption(string $moveOptionName): MoveOption
     {
-        return current(array_filter( $this->items, fn (MoveOption $item) => $itemName === $item->getName()));
+        return $this->moveOptions[$moveOptionName];
     }
 }

@@ -2,47 +2,23 @@
 
 namespace Game\Gameplay;
 
-use Game\Model\Player\Player;
+use Game\Model\Move;
 use Game\Model\Player\Player;
 
 class Rules
 {
-    private array $rulesItemBeat;
+    private array $rulesItemBeatConfig;
 
-    public function __construct(array $rulesItemBeat)
+    public function __construct(array $rulesMoveOptionBeatConfig)
     {
-        $this->rulesItemBeat = $rulesItemBeat;
-    }
-
-    /**
-     * @param Move[] $moves
-     *
-     * @return Player[]
-     */
-    public function rankPlayers(array $moves): array
-    {
-        /** @var GameScore $gameScore */
-        $gameScore = array_reduce(
-            $moves,
-            fn(GameScore $gameScore, Move $move) => $gameScore->addPlayerGameScore(new PlayerGameScore($move->getPlayer(), 0, count($moves))),
-            new GameScore(),
-        );
-
-        for ($idxMoveOfPlayer = 0; $idxMoveOfPlayer < count($moves); $idxMoveOfPlayer++) {
-            $moveOfPlayer = $moves[$idxMoveOfPlayer];
-            for ($idxMoveOfCompetitor = $idxMoveOfPlayer + 1; $idxMoveOfCompetitor < count($moves); $idxMoveOfCompetitor++) {
-                $moveOfCompetitor = $moves[$idxMoveOfCompetitor];
-                $winnerOfTwo      = $this->selectWinnerOfTwo($moveOfPlayer, $moveOfCompetitor);
-                $gameScore->findPlayerGameScore($winnerOfTwo)->incrementScore();
-            }
-        }
+        $this->rulesItemBeatConfig = $rulesMoveOptionBeatConfig;
     }
 
     public function selectWinnerOfTwo(Move $moveOfPlayer, Move $moveOfCompetitor): Player
     {
         $playerItemName     = $moveOfPlayer->getMoveOption()->getName();
         $competitorItemName = $moveOfCompetitor->getMoveOption()->getName();
-        if (in_array($competitorItemName, $this->rulesItemBeat[$playerItemName])) {
+        if (in_array($competitorItemName, $this->rulesItemBeatConfig[$playerItemName])) {
             return $moveOfPlayer->getPlayer();
         }
 

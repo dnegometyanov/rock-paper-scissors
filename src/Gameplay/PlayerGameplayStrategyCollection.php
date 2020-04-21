@@ -2,7 +2,6 @@
 
 namespace Game\Gameplay;
 
-
 class PlayerGameplayStrategyCollection
 {
     /**
