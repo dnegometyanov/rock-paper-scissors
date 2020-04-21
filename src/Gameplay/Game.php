@@ -4,6 +4,8 @@ namespace Game\Gameplay;
 
 use Game\Model\Move\Move;
 use Game\Model\Move\MoveCollection;
+use Game\Model\PlayerGameScore\PlayerGameScore;
+use Game\Model\PlayerGameScore\PlayerGameScoreCollection;
 
 class Game
 {
