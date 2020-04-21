@@ -6,7 +6,7 @@ use Game\Config\Config;
 use Game\Gameplay\Game;
 use Game\Gameplay\GameplayStrategy\GameplayStrategyCollectionFactory;
 use Game\Gameplay\GameplayStrategy\GameplayStrategyFactory;
-use Game\Gameplay\PlayerGameplayStrategyCollectionFactory;
+use Game\Gameplay\PlayerGameplayStrategy\PlayerGameplayStrategyCollectionFactory;
 use Game\Gameplay\Rules;
 use Game\Model\MoveOption\MoveOptionCollectionFactory;
 use Game\Model\Player\PlayerCollectionFactory;

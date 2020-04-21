@@ -2,6 +2,8 @@
 
 namespace Game\Gameplay;
 
+use Game\Gameplay\PlayerGameplayStrategy\PlayerGameplayStrategy;
+use Game\Gameplay\PlayerGameplayStrategy\PlayerGameplayStrategyCollection;
 use Game\Model\Move\Move;
 use Game\Model\Move\MoveCollection;
 use Game\Model\PlayerGameScore\PlayerGameScore;
@@ -38,11 +40,7 @@ class Game
             new MoveCollection(),
         );
 
-//        var_dump($moveCollection); exit;
-
         $result = $this->rankMoves($moveCollection);
-
-        var_dump($result);
 
         return $result;
     }
