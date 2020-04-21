@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Game\Model;
+namespace Game\Model\Move;
 
 use Game\Model\MoveOption\MoveOption;
 use Game\Model\Player\Player;

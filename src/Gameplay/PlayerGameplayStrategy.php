@@ -3,7 +3,7 @@
 namespace Game\Gameplay;
 
 use Game\Gameplay\GameplayStrategy\GameplayStrategyInterface;
-use Game\Model\Move;
+use Game\Model\Move\Move;
 use Game\Model\Player\Player;
 
 class PlayerGameplayStrategy

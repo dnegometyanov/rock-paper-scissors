@@ -2,7 +2,6 @@
 
 namespace Game\Gameplay;
 
-use Game\Model\MoveOption\MoveOption;
 use Game\Model\Player\Player;
 
 class PlayerGameScore
@@ -14,15 +13,9 @@ class PlayerGameScore
 
     private int $score;
 
-    /**
-     * @var MoveOption
-     */
-    private MoveOption $item;
-
     public function __construct(
         Player $player,
-        int $score,
-        int $rank
+        int $score
     )
     {
         $this->player = $player;
@@ -48,13 +41,4 @@ class PlayerGameScore
     {
         return $this->score;
     }
-
-    /**
-     * @return int
-     */
-    public function getRank(): int
-    {
-        return $this->rank;
-    }
-
 }

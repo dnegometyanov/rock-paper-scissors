@@ -2,8 +2,8 @@
 
 namespace Game\Gameplay;
 
-use Game\Model\Move;
-use Game\Model\Player\Player;
+use Game\Model\Move\Move;
+use Game\Model\Move\MoveCollection;
 
 class Game
 {
@@ -26,38 +26,56 @@ class Game
         $this->rules                            = $rules;
     }
 
-    public function play(): array
+    public function play()
     {
-        /** @var Move[] $moves */
-        $moves = array_map(
-            fn (PlayerGameplayStrategy $playerGameplayStrategy) => $playerGameplayStrategy->move(),
+        /** @var MoveCollection $moves */
+        $moveCollection = array_reduce(
             $this->playerGameplayStrategyCollection->getPlayerGameplayStrategies(),
+            fn (MoveCollection $moveCollection, PlayerGameplayStrategy $playerGameplayStrategy) =>
+                $moveCollection->addMove($playerGameplayStrategy->move()),
+            new MoveCollection(),
         );
 
-        return $moves;
+//        var_dump($moveCollection); exit;
+
+        $result = $this->rankMoves($moveCollection);
+
+        var_dump($result);
+
+        return $result;
     }
 
     /**
-     * @param Move[] $moves
+     * @param MoveCollection $moveCollection
      *
-     * @return Player[]
+     * @return PlayerGameScoreCollection
      */
-    public function rankPlayers(array $moves): array
+    public function rankMoves(MoveCollection $moveCollection): PlayerGameScoreCollection
     {
-        /** @var GameScore $gameScore */
-        $gameScore = array_reduce(
-            $moves,
-            fn(GameScore $gameScore, Move $move) => $gameScore->addPlayerGameScore(new PlayerGameScore($move->getPlayer(), 0, count($moves))),
-            new GameScore(),
+        /** @var PlayerGameScoreCollection $playerGameScoreCollection */
+        $playerGameScoreCollection = array_reduce(
+            $moveCollection->getMoves(),
+            fn(PlayerGameScoreCollection $playerGameScoreCollection, Move $move) =>
+                $playerGameScoreCollection->addPlayerGameScore(new PlayerGameScore($move->getPlayer(), 0)),
+            new PlayerGameScoreCollection(),
         );
 
-        for ($idxMoveOfPlayer = 0; $idxMoveOfPlayer < count($moves); $idxMoveOfPlayer++) {
+//        var_dump($playerGameScoreCollection); exit;
+
+        $moves = array_values($moveCollection->getMoves());
+//        var_dump($moves); exit;
+        for ($idxMoveOfPlayer = 0; $idxMoveOfPlayer < count($moveCollection->getMoves()); $idxMoveOfPlayer++) {
             $moveOfPlayer = $moves[$idxMoveOfPlayer];
-            for ($idxMoveOfCompetitor = $idxMoveOfPlayer + 1; $idxMoveOfCompetitor < count($moves); $idxMoveOfCompetitor++) {
+//            var_dump($moveOfPlayer); exit();
+            for ($idxMoveOfCompetitor = $idxMoveOfPlayer + 1; $idxMoveOfCompetitor < count($moveCollection->getMoves()); $idxMoveOfCompetitor++) {
                 $moveOfCompetitor = $moves[$idxMoveOfCompetitor];
+//                var_dump($moveOfPlayer);
+//                var_dump($moveOfCompetitor);
                 $winnerOfTwo      = $this->rules->selectWinnerOfTwo($moveOfPlayer, $moveOfCompetitor);
-                $gameScore->findPlayerGameScore($winnerOfTwo)->incrementScore();
+                $playerGameScoreCollection->findPlayerGameScore($winnerOfTwo)->incrementScore();
             }
         }
+
+        return $playerGameScoreCollection;
     }
 }

@@ -5,7 +5,7 @@ namespace Game\Gameplay;
 use Game\Model\MoveOption\MoveOption;
 use Game\Model\Player\Player;
 
-class GameScore
+class PlayerGameScoreCollection
 {
     private array $gameScore;
 
@@ -19,14 +19,11 @@ class GameScore
      */
     private MoveOption $item;
 
-    public function addPlayerGameScore(PlayerGameScore $playerGameScore): void
+    public function addPlayerGameScore(PlayerGameScore $playerGameScore): PlayerGameScoreCollection
     {
         $this->gameScore[$playerGameScore->getPlayer()->getName()] = $playerGameScore;
-    }
 
-    public function findPlayerGameScore(Player $player): PlayerGameScore
-    {
-        return $this->gameScore[$player->getName()];
+        return $this;
     }
 
     /**
@@ -35,5 +32,10 @@ class GameScore
     public function getGameScore(): array
     {
         return $this->gameScore;
+    }
+
+    public function findPlayerGameScore(Player $player): PlayerGameScore
+    {
+        return $this->gameScore[$player->getName()];
     }
 }

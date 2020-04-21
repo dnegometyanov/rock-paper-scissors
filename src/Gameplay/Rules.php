@@ -2,7 +2,7 @@
 
 namespace Game\Gameplay;
 
-use Game\Model\Move;
+use Game\Model\Move\Move;
 use Game\Model\Player\Player;
 
 class Rules
