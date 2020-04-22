@@ -1,6 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Game\Gameplay\PlayerGameplayStrategy;
+namespace Game\Model\PlayerGameplayStrategy;
+
+use Game\Model\MoveOption\MoveOption;
 
 class PlayerGameplayStrategyCollection
 {

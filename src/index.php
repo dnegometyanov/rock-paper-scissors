@@ -4,12 +4,13 @@ namespace Game;
 
 use Game\Config\Config;
 use Game\Gameplay\Game;
-use Game\Gameplay\GameplayStrategy\GameplayStrategyCollectionFactory;
-use Game\Gameplay\GameplayStrategy\GameplayStrategyFactory;
-use Game\Gameplay\PlayerGameplayStrategy\PlayerGameplayStrategyCollectionFactory;
+use Game\Gameplay\GameplayStrategyService\GameplayStrategyServiceFactory;
 use Game\Gameplay\Rules;
+use Game\Model\GameplayStrategy\GameplayStrategyCollectionFactory;
+use Game\Model\GameplayStrategy\GameplayStrategyFactory;
 use Game\Model\MoveOption\MoveOptionCollectionFactory;
 use Game\Model\Player\PlayerCollectionFactory;
+use Game\Model\PlayerGameplayStrategy\PlayerGameplayStrategyCollectionFactory;
 
 require 'vendor/autoload.php';
 
@@ -47,18 +48,9 @@ $playerGameplayStrategyCollection = $playerGameplayStrategyCollectionFactory->cr
 
 //var_dump($playerGameplayStrategyCollection); exit;
 
-$rules  = new Rules($config->getRulesMoveOptionBeatConfig());
-$game   = new Game($playerGameplayStrategyCollection, $rules);
-$result = $game->play();
+$gameplayStrategyServiceFactory = new GameplayStrategyServiceFactory($moveOptionCollection);
+$rules                          = new Rules($config->getRulesMoveOptionBeatConfig());
+$game                           = new Game($gameplayStrategyServiceFactory, $playerGameplayStrategyCollection, $rules);
+$result                         = $game->play();
 
 var_dump($result);
-
-//
-//$players = array_map(
-//    fn (string $player) => $player->
-//    $config->getPlayerNames()
-//);
-//
-//$game = new Game();
-//
-//echo $game->play();

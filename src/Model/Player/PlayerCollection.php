@@ -36,6 +36,6 @@ class PlayerCollection
      */
     public function findPlayer(string $playerName): Player
     {
-        return current(array_filter( $this->players, fn (Player $player) => $playerName === $player->getName()));
+        return current(array_filter($this->players, fn (Player $player) => $playerName === $player->getName()));
     }
 }

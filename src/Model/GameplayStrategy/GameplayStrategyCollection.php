@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Game\Gameplay\GameplayStrategy;
+namespace Game\Model\GameplayStrategy;
 
 class GameplayStrategyCollection
 {

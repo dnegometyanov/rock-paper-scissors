@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Game\Gameplay\GameplayStrategy;
+namespace Game\Model\GameplayStrategy;
 
 use Game\Model\MoveOption\MoveOptionCollection;
 
@@ -34,8 +34,6 @@ class GameplayStrategyCollectionFactory
      */
     public function createGameplayStrategyCollection(array $gameplayStrategiesConfig): GameplayStrategyCollection
     {
-        $strategyNames = array_keys($gameplayStrategiesConfig);
-
         return array_reduce(
             $gameplayStrategiesConfig,
             fn(GameplayStrategyCollection $gameplayStrategyCollection, array $gameplayStrategyConfig) =>

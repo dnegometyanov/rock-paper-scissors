@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Game\Gameplay\GameplayStrategy;
+namespace Game\Model\GameplayStrategy;
 
 use Game\Model\MoveOption\MoveOptionCollection;
 
@@ -26,11 +26,12 @@ class GameplayStrategyFactory
      * @throws \Exception
      *
      * @return GameplayStrategyInterface
+     *
      */
     public function createStrategy(string $strategyType, string $strategyName, array $strategyConfig): GameplayStrategyInterface
     {
         switch ($strategyType) {
-            case ProbabilityGameplayStrategy::getType():
+            case ProbabilityGameplayStrategy::TYPE:
                 return new ProbabilityGameplayStrategy($strategyName, $this->moveOptionCollection, $strategyConfig);
                 break;
             default:

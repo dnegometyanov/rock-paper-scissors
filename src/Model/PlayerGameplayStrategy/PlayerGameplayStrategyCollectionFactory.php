@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Game\Gameplay\PlayerGameplayStrategy;
+namespace Game\Model\PlayerGameplayStrategy;
 
-use Game\Gameplay\GameplayStrategy\GameplayStrategyCollection;
+use Game\Model\GameplayStrategy\GameplayStrategyCollection;
 use Game\Model\Player\Player;
 use Game\Model\Player\PlayerCollection;
 

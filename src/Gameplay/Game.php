@@ -2,15 +2,21 @@
 
 namespace Game\Gameplay;
 
-use Game\Gameplay\PlayerGameplayStrategy\PlayerGameplayStrategy;
-use Game\Gameplay\PlayerGameplayStrategy\PlayerGameplayStrategyCollection;
+use Game\Gameplay\GameplayStrategyService\GameplayStrategyServiceFactory;
 use Game\Model\Move\Move;
 use Game\Model\Move\MoveCollection;
+use Game\Model\PlayerGameplayStrategy\PlayerGameplayStrategy;
+use Game\Model\PlayerGameplayStrategy\PlayerGameplayStrategyCollection;
 use Game\Model\PlayerGameScore\PlayerGameScore;
 use Game\Model\PlayerGameScore\PlayerGameScoreCollection;
 
 class Game
 {
+    /**
+     * @var GameplayStrategyServiceFactory
+     */
+    private GameplayStrategyServiceFactory $gameplayStrategyServiceFactory;
+
     /**
      * @var PlayerGameplayStrategyCollection
      */
@@ -22,10 +28,12 @@ class Game
     private Rules $rules;
 
     public function __construct(
+        GameplayStrategyServiceFactory $gameplayStrategyServiceFactory,
         PlayerGameplayStrategyCollection $playerGameplayStrategyCollection,
         Rules $rules
     )
     {
+        $this->gameplayStrategyServiceFactory   = $gameplayStrategyServiceFactory;
         $this->playerGameplayStrategyCollection = $playerGameplayStrategyCollection;
         $this->rules                            = $rules;
     }
@@ -36,9 +44,13 @@ class Game
         $moveCollection = array_reduce(
             $this->playerGameplayStrategyCollection->getPlayerGameplayStrategies(),
             fn (MoveCollection $moveCollection, PlayerGameplayStrategy $playerGameplayStrategy) =>
-                $moveCollection->addMove($playerGameplayStrategy->move()),
+                $moveCollection->addMove(
+                    $this->gameplayStrategyServiceFactory->createGameplayStrategyService($playerGameplayStrategy)->move()
+                ),
             new MoveCollection(),
         );
+
+//        var_dump($moveCollection); exit;
 
         $result = $this->rankMoves($moveCollection);
 
