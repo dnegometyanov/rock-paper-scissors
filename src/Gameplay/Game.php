@@ -41,23 +41,22 @@ class Game
 
     public function play()
     {
-        /** @var MoveCollection $moves */
-        $moveCollection = array_reduce(
-            $this->playerGameplayStrategyCollection->getPlayerGameplayStrategies(),
-            fn (MoveCollection $moveCollection, PlayerGameplayStrategy $playerGameplayStrategy) =>
-                $moveCollection->addMove(
-                    $this->gameplayStrategyServiceFactory->createGameplayStrategyService($playerGameplayStrategy)->move()
-                ),
-            new MoveCollection(),
-        );
-
-//        var_dump($moveCollection); exit;
-
-        $playerGameScoreCollection = $this->calculateMovesScore($moveCollection);
-
+        $moveCollection                   = $this->getPlayerMoves();
+        $playerGameScoreCollection        = $this->calculatePlayerGameScoreScore($moveCollection);
         $playerGameScoreGroupedCollection = $this->groupPlayerGameScore($playerGameScoreCollection);
 
         return $playerGameScoreGroupedCollection;
+    }
+    public function getPlayerMoves():MoveCollection
+    {
+        return array_reduce(
+            $this->playerGameplayStrategyCollection->getPlayerGameplayStrategies(),
+            fn (MoveCollection $moveCollection, PlayerGameplayStrategy $playerGameplayStrategy) =>
+            $moveCollection->addMove(
+                $this->gameplayStrategyServiceFactory->createGameplayStrategyService($playerGameplayStrategy)->move()
+            ),
+            new MoveCollection(),
+        );
     }
 
     /**
@@ -65,7 +64,7 @@ class Game
      *
      * @return PlayerGameScoreCollection
      */
-    public function calculateMovesScore(MoveCollection $moveCollection): PlayerGameScoreCollection
+    public function calculatePlayerGameScoreScore(MoveCollection $moveCollection): PlayerGameScoreCollection
     {
         /** @var PlayerGameScoreCollection $playerGameScoreCollection */
         $playerGameScoreCollection = array_reduce(
