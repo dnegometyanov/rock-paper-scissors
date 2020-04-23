@@ -47,12 +47,12 @@ class Game
 
         return $playerGameScoreGroupedCollection;
     }
-    public function getPlayerMoves():MoveCollection
+
+    public function getPlayerMoves(): MoveCollection
     {
         return array_reduce(
             $this->playerGameplayStrategyCollection->getPlayerGameplayStrategies(),
-            fn (MoveCollection $moveCollection, PlayerGameplayStrategy $playerGameplayStrategy) =>
-            $moveCollection->addMove(
+            fn(MoveCollection $moveCollection, PlayerGameplayStrategy $playerGameplayStrategy) => $moveCollection->addMove(
                 $this->gameplayStrategyServiceFactory->createGameplayStrategyService($playerGameplayStrategy)->move()
             ),
             new MoveCollection(),
@@ -69,8 +69,7 @@ class Game
         /** @var PlayerGameScoreCollection $playerGameScoreCollection */
         $playerGameScoreCollection = array_reduce(
             $moveCollection->getMoves(),
-            fn(PlayerGameScoreCollection $playerGameScoreCollection, Move $move) =>
-                $playerGameScoreCollection->addPlayerGameScore(new PlayerGameScore($move->getPlayer(), 0)),
+            fn(PlayerGameScoreCollection $playerGameScoreCollection, Move $move) => $playerGameScoreCollection->addPlayerGameScore(new PlayerGameScore($move->getPlayer(), 0)),
             new PlayerGameScoreCollection(),
         );
 
@@ -96,8 +95,7 @@ class Game
     {
         return array_reduce(
             $playerGameScoreCollection->getGameScore(),
-            fn(PlayerGameScoreGroupedCollection $layerGameScoreGroupedCollection, PlayerGameScore $playerGameScore) =>
-                $layerGameScoreGroupedCollection->addPlayerGameScore($playerGameScore),
+            fn(PlayerGameScoreGroupedCollection $layerGameScoreGroupedCollection, PlayerGameScore $playerGameScore) => $layerGameScoreGroupedCollection->addPlayerGameScore($playerGameScore),
             new PlayerGameScoreGroupedCollection(),
         );
     }
