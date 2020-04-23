@@ -31,7 +31,7 @@ class PlayerGameScoreCollection
      */
     public function getGameScore(): array
     {
-        return $this->gameScore;
+        return array_values($this->gameScore);
     }
 
     public function findPlayerGameScore(Player $player): PlayerGameScore

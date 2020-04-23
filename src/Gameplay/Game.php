@@ -9,6 +9,7 @@ use Game\Model\PlayerGameplayStrategy\PlayerGameplayStrategy;
 use Game\Model\PlayerGameplayStrategy\PlayerGameplayStrategyCollection;
 use Game\Model\PlayerGameScore\PlayerGameScore;
 use Game\Model\PlayerGameScore\PlayerGameScoreCollection;
+use Game\Model\PlayerGameScore\PlayerGameScoreGroupedCollection;
 
 class Game
 {
@@ -52,9 +53,11 @@ class Game
 
 //        var_dump($moveCollection); exit;
 
-        $result = $this->rankMoves($moveCollection);
+        $playerGameScoreCollection = $this->calculateMovesScore($moveCollection);
 
-        return $result;
+        $playerGameScoreGroupedCollection = $this->groupPlayerGameScore($playerGameScoreCollection);
+
+        return $playerGameScoreGroupedCollection;
     }
 
     /**
@@ -62,7 +65,7 @@ class Game
      *
      * @return PlayerGameScoreCollection
      */
-    public function rankMoves(MoveCollection $moveCollection): PlayerGameScoreCollection
+    public function calculateMovesScore(MoveCollection $moveCollection): PlayerGameScoreCollection
     {
         /** @var PlayerGameScoreCollection $playerGameScoreCollection */
         $playerGameScoreCollection = array_reduce(
@@ -72,22 +75,31 @@ class Game
             new PlayerGameScoreCollection(),
         );
 
-//        var_dump($playerGameScoreCollection); exit;
-
         $moves = array_values($moveCollection->getMoves());
-//        var_dump($moves); exit;
         for ($idxMoveOfPlayer = 0; $idxMoveOfPlayer < count($moveCollection->getMoves()); $idxMoveOfPlayer++) {
             $moveOfPlayer = $moves[$idxMoveOfPlayer];
-//            var_dump($moveOfPlayer); exit();
             for ($idxMoveOfCompetitor = $idxMoveOfPlayer + 1; $idxMoveOfCompetitor < count($moveCollection->getMoves()); $idxMoveOfCompetitor++) {
                 $moveOfCompetitor = $moves[$idxMoveOfCompetitor];
-//                var_dump($moveOfPlayer);
-//                var_dump($moveOfCompetitor);
                 $winnerOfTwo      = $this->rules->selectWinnerOfTwo($moveOfPlayer, $moveOfCompetitor);
                 $playerGameScoreCollection->findPlayerGameScore($winnerOfTwo)->incrementScore();
             }
         }
 
         return $playerGameScoreCollection;
+    }
+
+    /**
+     * @param PlayerGameScoreCollection $playerGameScoreCollection
+     *
+     * @return PlayerGameScoreGroupedCollection
+     */
+    public function groupPlayerGameScore(PlayerGameScoreCollection $playerGameScoreCollection): PlayerGameScoreGroupedCollection
+    {
+        return array_reduce(
+            $playerGameScoreCollection->getGameScore(),
+            fn(PlayerGameScoreGroupedCollection $layerGameScoreGroupedCollection, PlayerGameScore $playerGameScore) =>
+                $layerGameScoreGroupedCollection->addPlayerGameScore($playerGameScore),
+            new PlayerGameScoreGroupedCollection(),
+        );
     }
 }
