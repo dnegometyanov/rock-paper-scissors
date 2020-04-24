@@ -21,7 +21,7 @@ class PlayerGameScoreCollection
 
     public function addPlayerGameScore(PlayerGameScore $playerGameScore): PlayerGameScoreCollection
     {
-        $this->gameScore[$playerGameScore->getPlayer()->getName()] = $playerGameScore;
+        $this->gameScore[$playerGameScore->getMove()->getPlayer()->getName()] = $playerGameScore;
 
         return $this;
     }

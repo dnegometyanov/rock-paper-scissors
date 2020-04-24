@@ -2,23 +2,23 @@
 
 namespace Game\Model\PlayerGameScore;
 
-use Game\Model\Player\Player;
+use Game\Model\Move\Move;
 
 class PlayerGameScore
 {
     /**
-     * @var Player
+     * @var Move
      */
-    private Player $player;
+    private Move $move;
 
     private int $score;
 
     public function __construct(
-        Player $player,
+        Move $move,
         int $score
     )
     {
-        $this->player = $player;
+        $this->move   = $move;
         $this->score  = $score;
     }
 
@@ -27,11 +27,11 @@ class PlayerGameScore
     }
 
     /**
-     * @return Player
+     * @return Move
      */
-    public function getPlayer(): Player
+    public function getMove(): Move
     {
-        return $this->player;
+        return $this->move;
     }
 
     /**

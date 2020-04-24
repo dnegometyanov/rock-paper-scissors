@@ -14,14 +14,17 @@ class Rules
         $this->rulesItemBeatConfig = $rulesMoveOptionBeatConfig;
     }
 
-    public function selectWinnerOfTwo(Move $moveOfPlayer, Move $moveOfCompetitor): Player
+    public function selectWinnerOfTwo(Move $moveOfPlayer, Move $moveOfCompetitor): ?Player
     {
         $playerItemName     = $moveOfPlayer->getMoveOption()->getName();
         $competitorItemName = $moveOfCompetitor->getMoveOption()->getName();
+
         if (in_array($competitorItemName, $this->rulesItemBeatConfig[$playerItemName])) {
             return $moveOfPlayer->getPlayer();
+        } elseif (in_array($playerItemName, $this->rulesItemBeatConfig[$competitorItemName])) {
+            return $moveOfCompetitor->getPlayer();
         }
 
-        return $moveOfCompetitor->getPlayer();
+        return null;
     }
 }

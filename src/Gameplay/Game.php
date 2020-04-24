@@ -9,7 +9,8 @@ use Game\Model\PlayerGameplayStrategy\PlayerGameplayStrategy;
 use Game\Model\PlayerGameplayStrategy\PlayerGameplayStrategyCollection;
 use Game\Model\PlayerGameScore\PlayerGameScore;
 use Game\Model\PlayerGameScore\PlayerGameScoreCollection;
-use Game\Model\PlayerGameScore\PlayerGameScoreGroupedCollection;
+use Game\Model\PlayerGameScore\PlayerGameScoreGroupedRankedCollection;
+use Game\Model\PlayerGameScore\PlayerGameScoreGroupedSortedCollection;
 
 class Game
 {
@@ -41,11 +42,12 @@ class Game
 
     public function play()
     {
-        $moveCollection                   = $this->getPlayerMoves();
-        $playerGameScoreCollection        = $this->calculatePlayerGameScoreScore($moveCollection);
-        $playerGameScoreGroupedCollection = $this->groupPlayerGameScore($playerGameScoreCollection);
+        $moveCollection                         = $this->getPlayerMoves();
+        $playerGameScoreCollection              = $this->calculatePlayerGameScoreScore($moveCollection);
+        $playerGameScoreGroupedSortedCollection = $this->groupAndSortPlayerGameScore($playerGameScoreCollection);
+        $playerGameScoreGroupedRankedCollection = new PlayerGameScoreGroupedRankedCollection($playerGameScoreGroupedSortedCollection);
 
-        return $playerGameScoreGroupedCollection;
+        return $playerGameScoreGroupedRankedCollection;
     }
 
     public function getPlayerMoves(): MoveCollection
@@ -69,7 +71,7 @@ class Game
         /** @var PlayerGameScoreCollection $playerGameScoreCollection */
         $playerGameScoreCollection = array_reduce(
             $moveCollection->getMoves(),
-            fn(PlayerGameScoreCollection $playerGameScoreCollection, Move $move) => $playerGameScoreCollection->addPlayerGameScore(new PlayerGameScore($move->getPlayer(), 0)),
+            fn(PlayerGameScoreCollection $playerGameScoreCollection, Move $move) => $playerGameScoreCollection->addPlayerGameScore(new PlayerGameScore($move, 0)),
             new PlayerGameScoreCollection(),
         );
 
@@ -79,7 +81,9 @@ class Game
             for ($idxMoveOfCompetitor = $idxMoveOfPlayer + 1; $idxMoveOfCompetitor < count($moveCollection->getMoves()); $idxMoveOfCompetitor++) {
                 $moveOfCompetitor = $moves[$idxMoveOfCompetitor];
                 $winnerOfTwo      = $this->rules->selectWinnerOfTwo($moveOfPlayer, $moveOfCompetitor);
-                $playerGameScoreCollection->findPlayerGameScore($winnerOfTwo)->incrementScore();
+                if ($winnerOfTwo) {
+                    $playerGameScoreCollection->findPlayerGameScore($winnerOfTwo)->incrementScore();
+                }
             }
         }
 
@@ -89,14 +93,14 @@ class Game
     /**
      * @param PlayerGameScoreCollection $playerGameScoreCollection
      *
-     * @return PlayerGameScoreGroupedCollection
+     * @return PlayerGameScoreGroupedSortedCollection
      */
-    public function groupPlayerGameScore(PlayerGameScoreCollection $playerGameScoreCollection): PlayerGameScoreGroupedCollection
+    public function groupAndSortPlayerGameScore(PlayerGameScoreCollection $playerGameScoreCollection): PlayerGameScoreGroupedSortedCollection
     {
         return array_reduce(
             $playerGameScoreCollection->getGameScore(),
-            fn(PlayerGameScoreGroupedCollection $layerGameScoreGroupedCollection, PlayerGameScore $playerGameScore) => $layerGameScoreGroupedCollection->addPlayerGameScore($playerGameScore),
-            new PlayerGameScoreGroupedCollection(),
+            fn(PlayerGameScoreGroupedSortedCollection $layerGameScoreGroupedCollection, PlayerGameScore $playerGameScore) => $layerGameScoreGroupedCollection->addPlayerGameScore($playerGameScore),
+            new PlayerGameScoreGroupedSortedCollection(),
         );
     }
 }
