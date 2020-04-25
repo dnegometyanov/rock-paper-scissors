@@ -6,6 +6,9 @@ use Game\Model\MoveOption\MoveOption;
 
 class PlayerGameScoreGroupedSortedCollection
 {
+    /**
+     * @var array
+     */
     private array $gameScoreGroupedSorted;
 
     public function __construct()
@@ -18,6 +21,11 @@ class PlayerGameScoreGroupedSortedCollection
      */
     private MoveOption $item;
 
+    /**
+     * @param PlayerGameScore $playerGameScore
+     *
+     * @return $this
+     */
     public function addPlayerGameScore(PlayerGameScore $playerGameScore): PlayerGameScoreGroupedSortedCollection
     {
         $this->gameScoreGroupedSorted[$playerGameScore->getScore()][] = $playerGameScore;
@@ -30,7 +38,7 @@ class PlayerGameScoreGroupedSortedCollection
     /**
      * @return array
      */
-    public function getGameScoreGroupedSorted(): array
+    public function toArray(): array
     {
         return array_values($this->gameScoreGroupedSorted);
     }

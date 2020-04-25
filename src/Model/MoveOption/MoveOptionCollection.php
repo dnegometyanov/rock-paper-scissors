@@ -22,14 +22,6 @@ class MoveOptionCollection
     }
 
     /**
-     * @return MoveOption[]
-     */
-    public function getMoveOptions(): array
-    {
-        return $this->moveOptions;
-    }
-
-    /**
      * @param string $moveOptionName
      *
      * @return MoveOption
@@ -37,5 +29,13 @@ class MoveOptionCollection
     public function findMoveOption(string $moveOptionName): MoveOption
     {
         return $this->moveOptions[$moveOptionName];
+    }
+
+    /**
+     * @return MoveOption[]
+     */
+    public function toArray(): array
+    {
+        return $this->moveOptions;
     }
 }

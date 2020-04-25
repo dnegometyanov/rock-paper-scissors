@@ -52,7 +52,7 @@ class GameService
     protected function getPlayerMoves(): MoveCollection
     {
         return array_reduce(
-            $this->playerGameplayStrategyCollection->getPlayerGameplayStrategies(),
+            $this->playerGameplayStrategyCollection->toArray(),
             fn(MoveCollection $moveCollection, PlayerGameplayStrategy $playerGameplayStrategy) => $moveCollection->addMove(
                 $this->gameplayStrategyServiceFactory->createGameplayStrategyService($playerGameplayStrategy)->move()
             ),
@@ -69,15 +69,15 @@ class GameService
     {
         /** @var PlayerGameScoreCollection $playerGameScoreCollection */
         $playerGameScoreCollection = array_reduce(
-            $moveCollection->getMoves(),
+            $moveCollection->toArray(),
             fn(PlayerGameScoreCollection $playerGameScoreCollection, Move $move) => $playerGameScoreCollection->addPlayerGameScore(new PlayerGameScore($move, 0)),
             new PlayerGameScoreCollection(),
         );
 
-        $moves = array_values($moveCollection->getMoves());
-        for ($idxMoveOfPlayer = 0; $idxMoveOfPlayer < count($moveCollection->getMoves()); $idxMoveOfPlayer++) {
+        $moves = array_values($moveCollection->toArray());
+        for ($idxMoveOfPlayer = 0; $idxMoveOfPlayer < count($moveCollection->toArray()); $idxMoveOfPlayer++) {
             $moveOfPlayer = $moves[$idxMoveOfPlayer];
-            for ($idxMoveOfCompetitor = $idxMoveOfPlayer + 1; $idxMoveOfCompetitor < count($moveCollection->getMoves()); $idxMoveOfCompetitor++) {
+            for ($idxMoveOfCompetitor = $idxMoveOfPlayer + 1; $idxMoveOfCompetitor < count($moveCollection->toArray()); $idxMoveOfCompetitor++) {
                 $moveOfCompetitor = $moves[$idxMoveOfCompetitor];
                 $winnerOfTwo      = $this->rules->selectWinnerOfTwo($moveOfPlayer, $moveOfCompetitor);
                 if ($winnerOfTwo) {

@@ -5,17 +5,20 @@ namespace Game\Model\PlayerGameScore;
 
 class PlayerGameScoreGroupedRankedCollection
 {
+    /**
+     * @var array
+     */
     private array $gameScoreGroupedRanked;
 
     public function __construct(PlayerGameScoreGroupedSortedCollection $playerGameScoreGroupedSortedCollection)
     {
-        $this->gameScoreGroupedRanked = array_values($playerGameScoreGroupedSortedCollection->getGameScoreGroupedSorted());
+        $this->gameScoreGroupedRanked = array_values($playerGameScoreGroupedSortedCollection->toArray());
     }
 
     /**
      * @return array
      */
-    public function getGameScoreGroupedRanked(): array
+    public function toArray(): array
     {
         return $this->gameScoreGroupedRanked;
     }

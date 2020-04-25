@@ -6,6 +6,8 @@ use Game\Model\GameSeriesResult\GameSeriesResult;
 use Game\Model\GameSeriesResult\PlayerGameSeriesGamesCollection;
 use Game\Model\GameSeriesResult\PlayerGameSeriesScore;
 use Game\Model\GameSeriesResult\PlayerGameSeriesScoreCollection;
+use Game\Model\GameSeriesResult\PlayerGameSeriesScoreGroupedRankedCollection;
+use Game\Model\GameSeriesResult\PlayerGameSeriesScoreGroupedSortedCollection;
 use Game\Model\PlayerGameScore\PlayerGameScore;
 
 class GameSeriesService
@@ -31,22 +33,22 @@ class GameSeriesService
 
     public function playSeries()
     {
-        $playerGameSeriesScoreCollection = new PlayerGameSeriesScoreCollection();
-        $playerGameSeriesGamesCollection = new PlayerGameSeriesGamesCollection();
+        $playerGameSeriesScoreGroupedSortedCollection = new PlayerGameSeriesScoreCollection();
+        $playerGameSeriesGamesCollection              = new PlayerGameSeriesGamesCollection();
 
         for ($gameIndex = 0; $gameIndex < $this->gameSeriesMoveNumber; $gameIndex++) {
             $playerGameScoreGroupedRankedCollection = $this->gameService->play();
             $playerGameSeriesGamesCollection->addGame($playerGameScoreGroupedRankedCollection);
 
-            foreach ($playerGameScoreGroupedRankedCollection->getGameScoreGroupedRanked() as $gameRank => $rankCollection) {
+            foreach ($playerGameScoreGroupedRankedCollection->toArray() as $gameRank => $rankCollection) {
                 foreach ($rankCollection as $playerGameScore) {
                     /** @var PlayerGameScore $playerGameScore */
-                    $playerGameSeriesScore = $playerGameSeriesScoreCollection->findPlayerGameSeriesScore(
+                    $playerGameSeriesScore = $playerGameSeriesScoreGroupedSortedCollection->findPlayerGameSeriesScore(
                         $playerGameScore->getMove()->getPlayer()
                     );
 
-                    if (!$playerGameSeriesScoreCollection->findPlayerGameSeriesScore($playerGameScore->getMove()->getPlayer())) {
-                        $playerGameSeriesScoreCollection->addPlayerGameSeriesScore(
+                    if (!$playerGameSeriesScoreGroupedSortedCollection->findPlayerGameSeriesScore($playerGameScore->getMove()->getPlayer())) {
+                        $playerGameSeriesScoreGroupedSortedCollection->addPlayerGameSeriesScore(
                             $playerGameSeriesScore = new PlayerGameSeriesScore(
                                 $playerGameScore->getMove()->getPlayer(),
                                 0,
@@ -59,9 +61,27 @@ class GameSeriesService
             }
         }
 
+        $playerGameSeriesScoreGroupedSortedCollection = $this->groupAndSortPlayerGameSeriesScore($playerGameSeriesScoreGroupedSortedCollection);
+        $playerGameSeriesScoreGroupedRankedCollection = new PlayerGameSeriesScoreGroupedRankedCollection($playerGameSeriesScoreGroupedSortedCollection);
+
         return new GameSeriesResult(
-            $playerGameSeriesScoreCollection,
-            new PlayerGameSeriesGamesCollection() //$playerGameSeriesGamesCollection,
+            $playerGameSeriesScoreGroupedRankedCollection,
+            $playerGameSeriesGamesCollection,
+        );
+    }
+
+    /**
+     * @param PlayerGameSeriesScoreCollection $playerGameSeriesScoreCollection
+     *
+     * @return PlayerGameSeriesScoreGroupedSortedCollection
+     */
+    protected function groupAndSortPlayerGameSeriesScore(PlayerGameSeriesScoreCollection $playerGameSeriesScoreCollection): PlayerGameSeriesScoreGroupedSortedCollection
+    {
+        return array_reduce(
+            $playerGameSeriesScoreCollection->toArray(),
+            fn(PlayerGameSeriesScoreGroupedSortedCollection $playerGameSeriesScoreGroupedCollection, PlayerGameSeriesScore $playerGameSeriesScore) =>
+                $playerGameSeriesScoreGroupedCollection->addPlayerGameSeriesScore($playerGameSeriesScore),
+            new PlayerGameSeriesScoreGroupedSortedCollection(),
         );
     }
 }

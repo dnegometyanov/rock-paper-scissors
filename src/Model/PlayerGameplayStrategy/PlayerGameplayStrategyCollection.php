@@ -29,14 +29,6 @@ class PlayerGameplayStrategyCollection
     }
 
     /**
-     * @return PlayerGameplayStrategy[]
-     */
-    public function getPlayerGameplayStrategies(): array
-    {
-        return $this->playerGameplayStrategies;
-    }
-
-    /**
      * @param string $playerName
      *
      * @return MoveOption
@@ -44,5 +36,13 @@ class PlayerGameplayStrategyCollection
     public function findPlayerGameplayStrategy(string $playerName): MoveOption
     {
         return $this->playerGameplayStrategies[$playerName];
+    }
+
+    /**
+     * @return PlayerGameplayStrategy[]
+     */
+    public function toArray(): array
+    {
+        return $this->playerGameplayStrategies;
     }
 }

@@ -22,14 +22,6 @@ class PlayerCollection
     }
 
     /**
-     * @return Player[]
-     */
-    public function getPlayers(): array
-    {
-        return $this->players;
-    }
-
-    /**
      * @param string $playerName
      *
      * @return Player
@@ -37,5 +29,13 @@ class PlayerCollection
     public function findPlayer(string $playerName): Player
     {
         return current(array_filter($this->players, fn (Player $player) => $playerName === $player->getName()));
+    }
+
+    /**
+     * @return Player[]
+     */
+    public function toArray(): array
+    {
+        return $this->players;
     }
 }

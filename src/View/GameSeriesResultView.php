@@ -4,30 +4,37 @@ namespace Game\View;
 
 use Game\Model\GameSeriesResult\GameSeriesResult;
 use Game\Model\GameSeriesResult\PlayerGameSeriesScore;
-use Game\Model\GameSeriesResult\PlayerGameSeriesScoreCollection;
+use Game\Model\GameSeriesResult\PlayerGameSeriesScoreGroupedRankedCollection;
 
 class GameSeriesResultView implements GameSeriesViewInterface
 {
     public function view(GameSeriesResult $gameSeriesResult): string
     {
-        return sprintf("\n\033[1mGame Series Summary:\033[0m\n %s",
-            $this->summaryItemsView($gameSeriesResult->getPlayerGameSeriesScoreCollection())
+        return sprintf(" ###### Game Series Summary:\n %s",
+            $this->ranksSummaryView($gameSeriesResult->toArray())
         );
     }
 
-    protected function summaryItemsView(PlayerGameSeriesScoreCollection $playerGameSeriesScoreCollection): string
+    protected function ranksSummaryView(PlayerGameSeriesScoreGroupedRankedCollection $playerGameSeriesScoreGroupedRankedCollection): string
     {
-        return array_reduce(
-            $playerGameSeriesScoreCollection->toArray(),
-            fn(string $template, PlayerGameSeriesScore $playerGameSeriesScore) => $template = sprintf("%s \n %s", $template, $this->summaryItemView($playerGameSeriesScore)),
-            ''
-        );
+        $rankSummaryView = '';
+        foreach($playerGameSeriesScoreGroupedRankedCollection->toArray() as $rank => $playersGameSeriesScoreOfRank) {
+            $rankSummaryView .= sprintf("\n      # Place %s: \n ", $rank + 1);
+
+            foreach($playersGameSeriesScoreOfRank as $playerGameSeriesScore) {
+                /** @var PlayerGameSeriesScore $playerGameSeriesScore */
+                $rankSummaryView .= $this->playerOnRankView($playerGameSeriesScore);
+
+            }
+        }
+
+        return $rankSummaryView;
     }
 
-    protected function summaryItemView(PlayerGameSeriesScore $playerGameSeriesScore): string
+    protected function playerOnRankView(PlayerGameSeriesScore $playerGameSeriesScore): string
     {
         return sprintf(
-            '%s with score %s',
+            "         - %s with score %s \n",
             $playerGameSeriesScore->getPlayer()->getName(),
             $playerGameSeriesScore->getScore(),
         );

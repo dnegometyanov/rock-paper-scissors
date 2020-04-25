@@ -36,7 +36,7 @@ class PlayerGameplayStrategyCollectionFactory
     public function createPlayerGameplayStrategyCollection(): PlayerGameplayStrategyCollection
     {
         return array_reduce(
-            $this->playerCollection->getPlayers(),
+            $this->playerCollection->toArray(),
             fn(PlayerGameplayStrategyCollection $playerGameplayStrategyCollection, Player $player) =>
             $playerGameplayStrategyCollection->addPlayerGameplayStrategy(
                 new PlayerGameplayStrategy(

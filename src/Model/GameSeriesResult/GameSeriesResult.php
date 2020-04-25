@@ -6,9 +6,9 @@ namespace Game\Model\GameSeriesResult;
 class GameSeriesResult
 {
     /**
-     * @var PlayerGameSeriesScoreCollection
+     * @var PlayerGameSeriesScoreGroupedRankedCollection
      */
-    private PlayerGameSeriesScoreCollection $playerGameSeriesScoreCollection;
+    private PlayerGameSeriesScoreGroupedRankedCollection $playerGameSeriesScoreGroupedRankedCollection;
 
     /**
      * @var PlayerGameSeriesGamesCollection
@@ -16,21 +16,16 @@ class GameSeriesResult
     private PlayerGameSeriesGamesCollection $playerGameSeriesGamesCollection;
 
     public function __construct(
-        PlayerGameSeriesScoreCollection $playerGameSeriesScoreCollection,
+        PlayerGameSeriesScoreGroupedRankedCollection $playerGameSeriesScoreGroupedRankedCollection,
         PlayerGameSeriesGamesCollection $playerGameSeriesGamesCollection
     )
     {
-        $this->playerGameSeriesScoreCollection = $playerGameSeriesScoreCollection;
-        $this->playerGameSeriesGamesCollection = $playerGameSeriesGamesCollection;
+        $this->playerGameSeriesScoreGroupedRankedCollection = $playerGameSeriesScoreGroupedRankedCollection;
+        $this->playerGameSeriesGamesCollection              = $playerGameSeriesGamesCollection;
     }
 
-    public function getPlayerGameSeriesScoreCollection(): PlayerGameSeriesScoreCollection
+    public function toArray(): PlayerGameSeriesScoreGroupedRankedCollection
     {
-        return $this->playerGameSeriesScoreCollection;
-    }
-
-    public function getPlayerGameSeriesGamesCollection(): PlayerGameSeriesGamesCollection
-    {
-        return $this->playerGameSeriesGamesCollection;
+        return $this->playerGameSeriesScoreGroupedRankedCollection;
     }
 }

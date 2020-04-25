@@ -22,14 +22,6 @@ class MoveCollection
     }
 
     /**
-     * @return Move[]
-     */
-    public function getMoves(): array
-    {
-        return $this->moves;
-    }
-
-    /**
      * @param string $playerName
      *
      * @return Move
@@ -37,5 +29,13 @@ class MoveCollection
     public function findMove(string $playerName): Move
     {
         return $this->moves[$playerName];
+    }
+
+    /**
+     * @return Move[]
+     */
+    public function toArray(): array
+    {
+        return $this->moves;
     }
 }
