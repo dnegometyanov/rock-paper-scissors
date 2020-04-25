@@ -61,7 +61,7 @@ class GameSeriesService
 
         return new GameSeriesResult(
             $playerGameSeriesScoreCollection,
-            $playerGameSeriesGamesCollection,
+            new PlayerGameSeriesGamesCollection() //$playerGameSeriesGamesCollection,
         );
     }
 }

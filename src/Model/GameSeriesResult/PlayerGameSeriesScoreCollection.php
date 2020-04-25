@@ -37,4 +37,9 @@ class PlayerGameSeriesScoreCollection
     {
         return $this->playersGameSeriesScore[$player->getName()] ?: null;
     }
+
+    public function toArray(): array
+    {
+        return $this->playersGameSeriesScore;
+    }
 }

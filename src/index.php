@@ -12,6 +12,7 @@ use Game\Service\GameplayStrategyService\GameplayStrategyServiceFactory;
 use Game\Service\GameSeriesService;
 use Game\Service\GameService;
 use Game\Service\RulesService;
+use Game\View\GameSeriesResultView;
 
 require 'vendor/autoload.php';
 
@@ -47,5 +48,9 @@ $gameService                    = new GameService($gameplayStrategyServiceFactor
 
 $gameSeriesService = new GameSeriesService($gameService, $config->getGameSeriesConfig());
 
-$result = $gameSeriesService->playSeries();
-var_dump($result);
+$gameSeriesResult = $gameSeriesService->playSeries();
+//var_dump($gameSeriesResult); exit;
+
+$gameSeriesResultView = new GameSeriesResultView();
+
+echo $gameSeriesResultView->view($gameSeriesResult);
