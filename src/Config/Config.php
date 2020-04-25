@@ -70,12 +70,14 @@ class Config
         self::PLAYER_B => self::STRATEGY_NAME_PROBABILITY_RANDOM,
     ];
 
-    public function getMoveOptionNamesConfig() :array
+    const GAME_SERIES_MOVE_NUMBER = 100;
+
+    public function getMoveOptionNamesConfig(): array
     {
         return self::MOVE_OPTIONS;
     }
 
-    public function getRulesMoveOptionBeatConfig() :array
+    public function getRulesMoveOptionBeatConfig(): array
     {
         return self::RULES_MOVE_OPTION_BEAT;
     }
@@ -85,13 +87,20 @@ class Config
         return self::PLAYERS;
     }
 
-    public function getStrategiesConfig() :array
+    public function getStrategiesConfig(): array
     {
         return self::STRATEGIES;
     }
 
-    public function getPlayerStrategiesConfig() :array
+    public function getPlayerStrategiesConfig(): array
     {
         return self::PLAYER_STRATEGIES;
+    }
+
+    public function getGameSeriesConfig(): array
+    {
+        return [
+            'game_series_move_number' => self::GAME_SERIES_MOVE_NUMBER,
+        ];
     }
 }

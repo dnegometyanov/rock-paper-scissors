@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
-namespace Game\Gameplay;
+namespace Game\Service;
 
-use Game\Gameplay\GameplayStrategyService\GameplayStrategyServiceFactory;
 use Game\Model\Move\Move;
 use Game\Model\Move\MoveCollection;
 use Game\Model\PlayerGameplayStrategy\PlayerGameplayStrategy;
@@ -11,8 +10,9 @@ use Game\Model\PlayerGameScore\PlayerGameScore;
 use Game\Model\PlayerGameScore\PlayerGameScoreCollection;
 use Game\Model\PlayerGameScore\PlayerGameScoreGroupedRankedCollection;
 use Game\Model\PlayerGameScore\PlayerGameScoreGroupedSortedCollection;
+use Game\Service\GameplayStrategyService\GameplayStrategyServiceFactory;
 
-class Game
+class GameService
 {
     /**
      * @var GameplayStrategyServiceFactory
@@ -25,14 +25,14 @@ class Game
     private PlayerGameplayStrategyCollection $playerGameplayStrategyCollection;
 
     /**
-     * @var Rules
+     * @var RulesService
      */
-    private Rules $rules;
+    private RulesService $rules;
 
     public function __construct(
         GameplayStrategyServiceFactory $gameplayStrategyServiceFactory,
         PlayerGameplayStrategyCollection $playerGameplayStrategyCollection,
-        Rules $rules
+        RulesService $rules
     )
     {
         $this->gameplayStrategyServiceFactory   = $gameplayStrategyServiceFactory;
@@ -40,17 +40,16 @@ class Game
         $this->rules                            = $rules;
     }
 
-    public function play()
+    public function play(): PlayerGameScoreGroupedRankedCollection
     {
         $moveCollection                         = $this->getPlayerMoves();
         $playerGameScoreCollection              = $this->calculatePlayerGameScoreScore($moveCollection);
         $playerGameScoreGroupedSortedCollection = $this->groupAndSortPlayerGameScore($playerGameScoreCollection);
-        $playerGameScoreGroupedRankedCollection = new PlayerGameScoreGroupedRankedCollection($playerGameScoreGroupedSortedCollection);
 
-        return $playerGameScoreGroupedRankedCollection;
+        return new PlayerGameScoreGroupedRankedCollection($playerGameScoreGroupedSortedCollection);
     }
 
-    public function getPlayerMoves(): MoveCollection
+    protected function getPlayerMoves(): MoveCollection
     {
         return array_reduce(
             $this->playerGameplayStrategyCollection->getPlayerGameplayStrategies(),
@@ -66,7 +65,7 @@ class Game
      *
      * @return PlayerGameScoreCollection
      */
-    public function calculatePlayerGameScoreScore(MoveCollection $moveCollection): PlayerGameScoreCollection
+    protected function calculatePlayerGameScoreScore(MoveCollection $moveCollection): PlayerGameScoreCollection
     {
         /** @var PlayerGameScoreCollection $playerGameScoreCollection */
         $playerGameScoreCollection = array_reduce(
@@ -95,7 +94,7 @@ class Game
      *
      * @return PlayerGameScoreGroupedSortedCollection
      */
-    public function groupAndSortPlayerGameScore(PlayerGameScoreCollection $playerGameScoreCollection): PlayerGameScoreGroupedSortedCollection
+    protected function groupAndSortPlayerGameScore(PlayerGameScoreCollection $playerGameScoreCollection): PlayerGameScoreGroupedSortedCollection
     {
         return array_reduce(
             $playerGameScoreCollection->getGameScore(),

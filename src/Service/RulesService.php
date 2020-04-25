@@ -1,12 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace Game\Gameplay;
+namespace Game\Service;
 
 use Game\Model\Move\Move;
 use Game\Model\Player\Player;
 
-class Rules
+class RulesService
 {
+    /**
+     * @var array
+     */
     private array $rulesItemBeatConfig;
 
     public function __construct(array $rulesMoveOptionBeatConfig)
@@ -14,6 +17,12 @@ class Rules
         $this->rulesItemBeatConfig = $rulesMoveOptionBeatConfig;
     }
 
+    /**
+     * @param Move $moveOfPlayer
+     * @param Move $moveOfCompetitor
+     *
+     * @return Player|null
+     */
     public function selectWinnerOfTwo(Move $moveOfPlayer, Move $moveOfCompetitor): ?Player
     {
         $playerItemName     = $moveOfPlayer->getMoveOption()->getName();

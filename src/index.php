@@ -3,14 +3,15 @@
 namespace Game;
 
 use Game\Config\Config;
-use Game\Gameplay\Game;
-use Game\Gameplay\GameplayStrategyService\GameplayStrategyServiceFactory;
-use Game\Gameplay\Rules;
 use Game\Model\GameplayStrategy\GameplayStrategyCollectionFactory;
 use Game\Model\GameplayStrategy\GameplayStrategyFactory;
 use Game\Model\MoveOption\MoveOptionCollectionFactory;
 use Game\Model\Player\PlayerCollectionFactory;
 use Game\Model\PlayerGameplayStrategy\PlayerGameplayStrategyCollectionFactory;
+use Game\Service\GameplayStrategyService\GameplayStrategyServiceFactory;
+use Game\Service\GameSeriesService;
+use Game\Service\GameService;
+use Game\Service\RulesService;
 
 require 'vendor/autoload.php';
 
@@ -44,13 +45,18 @@ $playerGameplayStrategyCollectionFactory = new PlayerGameplayStrategyCollectionF
     $gameplayStrategyCollection,
     $config->getPlayerStrategiesConfig()
 );
-$playerGameplayStrategyCollection = $playerGameplayStrategyCollectionFactory->createPlayerGameplayStrategyCollection();
+$playerGameplayStrategyCollection        = $playerGameplayStrategyCollectionFactory->createPlayerGameplayStrategyCollection();
 
 //var_dump($playerGameplayStrategyCollection); exit;
 
 $gameplayStrategyServiceFactory = new GameplayStrategyServiceFactory($moveOptionCollection);
-$rules                          = new Rules($config->getRulesMoveOptionBeatConfig());
-$game                           = new Game($gameplayStrategyServiceFactory, $playerGameplayStrategyCollection, $rules);
-$result                         = $game->play();
+$rulesService                   = new RulesService($config->getRulesMoveOptionBeatConfig());
+$gameService                    = new GameService($gameplayStrategyServiceFactory, $playerGameplayStrategyCollection, $rulesService);
 
+//$result                         = $game->play();
+//var_dump($result);
+
+$gameSeriesService = new GameSeriesService($gameService, $config->getGameSeriesConfig());
+
+$result = $gameSeriesService->playSeries();
 var_dump($result);
