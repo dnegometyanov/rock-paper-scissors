@@ -2,36 +2,35 @@
 
 namespace Game\Model\GameSeriesResult;
 
-use Game\Model\PlayerGameScore\PlayerGameScoreGroupedRankedCollection;
 
 class GameSeriesResult
 {
     /**
-     * @var PlayerGameSeriesScore
+     * @var PlayerGameSeriesScoreCollection
      */
-    private PlayerGameSeriesScore $playerGameSeriesScore;
+    private PlayerGameSeriesScoreCollection $playerGameSeriesScoreCollection;
 
     /**
-     * @var PlayerGameScoreGroupedRankedCollection
+     * @var PlayerGameSeriesGamesCollection
      */
-    private PlayerGameScoreGroupedRankedCollection $playerGameScoreGroupedRankedCollection;
+    private PlayerGameSeriesGamesCollection $playerGameSeriesGamesCollection;
 
     public function __construct(
-        PlayerGameSeriesScore $playerGameSeriesScore,
-        PlayerGameScoreGroupedRankedCollection $playerGameScoreGroupedRankedCollection
+        PlayerGameSeriesScoreCollection $playerGameSeriesScoreCollection,
+        PlayerGameSeriesGamesCollection $playerGameSeriesGamesCollection
     )
     {
-        $this->playerGameSeriesScore                  = $playerGameSeriesScore;
-        $this->playerGameScoreGroupedRankedCollection = $playerGameScoreGroupedRankedCollection;
+        $this->playerGameSeriesScoreCollection = $playerGameSeriesScoreCollection;
+        $this->playerGameSeriesGamesCollection = $playerGameSeriesGamesCollection;
     }
 
-    public function getPlayerGameSeriesScore(): PlayerGameSeriesScore
+    public function getPlayerGameSeriesScoreCollection(): PlayerGameSeriesScoreCollection
     {
-        return $this->playerGameSeriesScore;
+        return $this->playerGameSeriesScoreCollection;
     }
 
-    public function getPlayerGameScoreGroupedRankedCollection(): PlayerGameScoreGroupedRankedCollection
+    public function getPlayerGameSeriesGamesCollection(): PlayerGameSeriesGamesCollection
     {
-        return $this->playerGameScoreGroupedRankedCollection;
+        return $this->playerGameSeriesGamesCollection;
     }
 }

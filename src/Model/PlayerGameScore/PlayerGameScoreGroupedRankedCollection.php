@@ -17,6 +17,6 @@ class PlayerGameScoreGroupedRankedCollection
      */
     public function getGameScoreGroupedRanked(): array
     {
-        return array_values($this->gameScoreGroupedRanked);
+        return $this->gameScoreGroupedRanked;
     }
 }
