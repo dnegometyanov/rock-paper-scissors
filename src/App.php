@@ -2,9 +2,10 @@
 
 namespace Game;
 
-use Game\Config\Config;
+use Game\Config\ConfigInterface;
 use Game\Model\GameplayStrategy\GameplayStrategyCollectionFactory;
 use Game\Model\GameplayStrategy\GameplayStrategyFactory;
+use Game\Model\GameSeriesResult\GameSeriesResult;
 use Game\Model\MoveOption\MoveOptionCollectionFactory;
 use Game\Model\Player\PlayerCollectionFactory;
 use Game\Model\PlayerGameplayStrategy\PlayerGameplayStrategyCollectionFactory;
@@ -12,21 +13,22 @@ use Game\Service\GameplayStrategyService\GameplayStrategyServiceFactory;
 use Game\Service\GameSeriesService;
 use Game\Service\GameService;
 use Game\Service\RulesService;
-use Game\View\GameSeriesResultView;
 
 class App
 {
     /**
-     * @var Config
+     * @var ConfigInterface
      */
-    private Config $config;
+    private ConfigInterface $config;
 
-    public function __construct(Config $config)
+    public function __construct(
+        ConfigInterface $config
+    )
     {
         $this->config = $config;
     }
 
-    public function run(): void
+    public function runGameSeries(): GameSeriesResult
     {
         $moveOptionCollectionFactory = new MoveOptionCollectionFactory();
         $moveOptionCollection        = $moveOptionCollectionFactory->create($this->config->getMoveOptionNamesConfig());
@@ -58,9 +60,6 @@ class App
 
         $gameSeriesService = new GameSeriesService($gameService, $this->config->getGameSeriesConfig());
 
-        $gameSeriesResult = $gameSeriesService->playSeries();
-
-        $gameSeriesResultView = new GameSeriesResultView();
-        echo $gameSeriesResultView->view($gameSeriesResult);
+        return $gameSeriesService->playSeries();
     }
 }

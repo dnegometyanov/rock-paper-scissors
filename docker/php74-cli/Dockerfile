@@ -15,10 +15,6 @@ RUN docker-php-ext-install opcache
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN composer --version
 
-RUN composer global require "phpunit/phpunit"
-ENV PATH /root/.composer/vendor/bin:$PATH
-RUN ln -s /root/.composer/vendor/bin/phpunit /usr/bin/phpunit
-
 RUN ls -la /usr/local
 
 WORKDIR /code

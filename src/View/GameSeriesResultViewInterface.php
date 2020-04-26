@@ -4,7 +4,7 @@ namespace Game\View;
 
 use Game\Model\GameSeriesResult\GameSeriesResult;
 
-interface GameSeriesViewInterface
+interface GameSeriesResultViewInterface
 {
 
     public function view(GameSeriesResult $gameSeriesResult): string;

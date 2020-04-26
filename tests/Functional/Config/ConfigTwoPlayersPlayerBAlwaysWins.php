@@ -1,9 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Game\Config;
+namespace GameTest\Functional\Config;
 
-class Config implements ConfigInterface
+use Game\Config\ConfigInterface;
+
+class ConfigTwoPlayersPlayerBAlwaysWins implements ConfigInterface
 {
+
     const MOVE_OPTION_ROCK     = 'Rock';
     const MOVE_OPTION_PAPER    = 'Paper';
     const MOVE_OPTION_SCISSORS = 'Scissors';
@@ -54,9 +57,9 @@ class Config implements ConfigInterface
         'strategy_name'   => self::STRATEGY_NAME_PROBABILITY_RANDOM,
         'strategy_type'   => self::STRATEGY_TYPE_PROBABILITY,
         'strategy_config' => [
-            self::MOVE_OPTION_ROCK     => 33,
-            self::MOVE_OPTION_PAPER    => 33,
-            self::MOVE_OPTION_SCISSORS => 33,
+            self::MOVE_OPTION_ROCK     => 0,
+            self::MOVE_OPTION_PAPER    => 0,
+            self::MOVE_OPTION_SCISSORS => 100,
         ]
     ];
 

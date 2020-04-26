@@ -1,9 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Game\Config;
+namespace GameTest\Functional\Config;
 
-class Config implements ConfigInterface
+use Game\Config\ConfigInterface;
+
+class ConfigDefaultTwoPlayersRockPaperScissors implements ConfigInterface
 {
+
     const MOVE_OPTION_ROCK     = 'Rock';
     const MOVE_OPTION_PAPER    = 'Paper';
     const MOVE_OPTION_SCISSORS = 'Scissors';

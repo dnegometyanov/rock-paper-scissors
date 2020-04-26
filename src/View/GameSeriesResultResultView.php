@@ -9,7 +9,7 @@ use Game\Model\GameSeriesResult\PlayerGameSeriesScoreGroupedRankedCollection;
 use Game\Model\PlayerGameScore\PlayerGameScore;
 use Game\Model\PlayerGameScore\PlayerGameScoreGroupedRankedCollection;
 
-class GameSeriesResultView implements GameSeriesViewInterface
+class GameSeriesResultResultView implements GameSeriesResultViewInterface
 {
     /**
      * @param GameSeriesResult $gameSeriesResult
