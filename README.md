@@ -39,7 +39,7 @@ If all 3 players have the same score - it's a Draw.
 2) No framework dependencies, except composer for autoloading and phpunit 
 
 3) Game is configured via configs in src/config folder. 
-Config name could be passed as parameter to console command.
+Config name could be passed as parameter to console command (see `Makefile` for usage examples).
 
 4) Key Services
      - `RulesService` - compares two moves and selects a winner of 2
@@ -53,13 +53,13 @@ Config name could be passed as parameter to console command.
 
      - Models folder with models, typed collections, and factories for them
      
-      - `View` folder for visualisation staff
+     - `View` folder for visualisation staff
       
-       - Some utility classed that run the game like `Controller` and `App`
+     - Some utility classes that run the game like `Controller` and `App`
        
 ## TODOs (what could be done better or not implemented yet)
   
-  - Not all classes are Unit tested (takes some, time)
+  - Not all classes are Unit tested (takes some time)
   
   - In case of framework version, probably its DI modules may be more suitable the hand-made DI in `Controller` and `App`
 
