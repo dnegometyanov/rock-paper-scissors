@@ -27,32 +27,32 @@ Commands from Makefile could be executed manually in case Make utility is not in
 
 ## Build container and install composer dependencies
 
-    Make build
+    make build
 
 ## Build container and install composer dependencies
 
 If dist files are not copied to actual destination, then
     
-    Make copy-dist-configs
+    make copy-dist-configs
         
 ## Run application
 
 Runs container and executes console application.
 
-    Make run
+    make run
 
 ## Run unit tests
 
 Runs container and executes unit tests.
 
-    Make unit-tests
+    make unit-tests
 
 ## Static analysis
 
 Static analysis check
 
-    Make static-analysis
+    make static-analysis
     
 ## Fix code style
 
-    Make cs-fix
+    make cs-fix

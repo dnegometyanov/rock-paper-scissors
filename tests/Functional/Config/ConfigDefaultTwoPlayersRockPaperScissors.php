@@ -73,7 +73,7 @@ class ConfigDefaultTwoPlayersRockPaperScissors implements ConfigInterface
         self::PLAYER_B => self::STRATEGY_NAME_PROBABILITY_RANDOM,
     ];
 
-    const GAME_SERIES_MOVE_NUMBER = 100;
+    const GAME_SERIES_GAMES_NUMBER = 100;
 
     public function getMoveOptionNamesConfig(): array
     {
@@ -103,7 +103,7 @@ class ConfigDefaultTwoPlayersRockPaperScissors implements ConfigInterface
     public function getGameSeriesConfig(): array
     {
         return [
-            'game_series_move_number' => self::GAME_SERIES_MOVE_NUMBER,
+            'game_series_games_number' => self::GAME_SERIES_GAMES_NUMBER,
         ];
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Game\Model\Player;
 
-
 class PlayerCollectionFactory
 {
     /**

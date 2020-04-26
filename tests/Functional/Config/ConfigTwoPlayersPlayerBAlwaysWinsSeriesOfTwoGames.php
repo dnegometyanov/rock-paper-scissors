@@ -4,7 +4,7 @@ namespace GameTest\Functional\Config;
 
 use Game\Config\ConfigInterface;
 
-class ConfigTwoPlayersPlayerBAlwaysWins implements ConfigInterface
+class ConfigTwoPlayersPlayerBAlwaysWinsSeriesOfTwoGames implements ConfigInterface
 {
 
     const MOVE_OPTION_ROCK     = 'Rock';
@@ -73,7 +73,7 @@ class ConfigTwoPlayersPlayerBAlwaysWins implements ConfigInterface
         self::PLAYER_B => self::STRATEGY_NAME_PROBABILITY_RANDOM,
     ];
 
-    const GAME_SERIES_MOVE_NUMBER = 100;
+    const GAME_SERIES_GAMES_NUMBER = 2;
 
     public function getMoveOptionNamesConfig(): array
     {
@@ -103,7 +103,7 @@ class ConfigTwoPlayersPlayerBAlwaysWins implements ConfigInterface
     public function getGameSeriesConfig(): array
     {
         return [
-            'game_series_move_number' => self::GAME_SERIES_MOVE_NUMBER,
+            'game_series_games_number' => self::GAME_SERIES_GAMES_NUMBER,
         ];
     }
 }

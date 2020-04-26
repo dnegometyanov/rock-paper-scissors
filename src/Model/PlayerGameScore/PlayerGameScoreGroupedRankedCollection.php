@@ -2,7 +2,6 @@
 
 namespace Game\Model\PlayerGameScore;
 
-
 class PlayerGameScoreGroupedRankedCollection
 {
     /**

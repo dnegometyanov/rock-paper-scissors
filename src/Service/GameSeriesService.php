@@ -28,7 +28,7 @@ class GameSeriesService
     )
     {
         $this->gameService          = $gameService;
-        $this->gameSeriesMoveNumber = (int)$gameSeriesConfig['game_series_move_number'];
+        $this->gameSeriesMoveNumber = (int) $gameSeriesConfig['game_series_games_number'];
     }
 
     public function playSeries()

@@ -2,7 +2,6 @@
 
 namespace Game\Model\GameSeriesResult;
 
-
 class GameSeriesResult
 {
     /**
