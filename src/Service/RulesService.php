@@ -10,11 +10,11 @@ class RulesService
     /**
      * @var array
      */
-    private array $rulesItemBeatConfig;
+    private array $rulesMoveOptionsBeatConfig;
 
     public function __construct(array $rulesMoveOptionBeatConfig)
     {
-        $this->rulesItemBeatConfig = $rulesMoveOptionBeatConfig;
+        $this->rulesMoveOptionsBeatConfig = $rulesMoveOptionBeatConfig;
     }
 
     /**
@@ -28,9 +28,9 @@ class RulesService
         $playerItemName     = $moveOfPlayer->getMoveOption()->getName();
         $competitorItemName = $moveOfCompetitor->getMoveOption()->getName();
 
-        if (in_array($competitorItemName, $this->rulesItemBeatConfig[$playerItemName])) {
+        if (in_array($competitorItemName, $this->rulesMoveOptionsBeatConfig[$playerItemName])) {
             return $moveOfPlayer->getPlayer();
-        } elseif (in_array($playerItemName, $this->rulesItemBeatConfig[$competitorItemName])) {
+        } elseif (in_array($playerItemName, $this->rulesMoveOptionsBeatConfig[$competitorItemName])) {
             return $moveOfCompetitor->getPlayer();
         }
 

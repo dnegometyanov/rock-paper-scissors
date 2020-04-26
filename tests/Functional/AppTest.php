@@ -4,7 +4,6 @@ namespace GameTest\Functional;
 
 use Game\App;
 use Game\Model\GameSeriesResult\GameSeriesResult;
-use Game\Model\GameSeriesResult\PlayerGameSeriesScore;
 use Game\Model\PlayerGameScore\PlayerGameScore;
 use Game\Model\PlayerGameScore\PlayerGameScoreGroupedRankedCollection;
 use GameTest\Functional\Config\ConfigDefaultTwoPlayersRockPaperScissors;
