@@ -22,4 +22,12 @@ class PlayerGameScoreGroupedRankedCollection
     {
         return $this->gameScoreGroupedRanked;
     }
+
+    /**
+     * @return int
+     */
+    public function getCount(): int
+    {
+        return count($this->gameScoreGroupedRanked);
+    }
 }

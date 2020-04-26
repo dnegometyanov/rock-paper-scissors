@@ -17,13 +17,13 @@ class PlayerGameSeriesGamesCollection
     }
 
     /**
-     * @param PlayerGameScoreGroupedRankedCollection $playerGameSeriesGamesCollection
+     * @param PlayerGameScoreGroupedRankedCollection $playerGameScoreGroupedRankedCollection
      *
      * @return PlayerGameSeriesGamesCollection
      */
-    public function addGame(PlayerGameScoreGroupedRankedCollection $playerGameSeriesGamesCollection): PlayerGameSeriesGamesCollection
+    public function addGame(PlayerGameScoreGroupedRankedCollection $playerGameScoreGroupedRankedCollection): PlayerGameSeriesGamesCollection
     {
-        $this->playersGames[] = $playerGameSeriesGamesCollection;
+        $this->playersGames[] = $playerGameScoreGroupedRankedCollection;
 
         return $this;
     }
@@ -31,7 +31,7 @@ class PlayerGameSeriesGamesCollection
     /**
      * @return array
      */
-    public function getGames(): array
+    public function toArray(): array
     {
         return $this->playersGames;
     }

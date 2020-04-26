@@ -24,8 +24,13 @@ class GameSeriesResult
         $this->playerGameSeriesGamesCollection              = $playerGameSeriesGamesCollection;
     }
 
-    public function toArray(): PlayerGameSeriesScoreGroupedRankedCollection
+    public function getPlayerGameSeriesScoreGroupedRankedCollection(): PlayerGameSeriesScoreGroupedRankedCollection
     {
         return $this->playerGameSeriesScoreGroupedRankedCollection;
+    }
+
+    public function getPlayerGameSeriesGamesCollection(): PlayerGameSeriesGamesCollection
+    {
+        return $this->playerGameSeriesGamesCollection;
     }
 }
