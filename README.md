@@ -9,7 +9,7 @@ for any number of layers and any number of move options.
 For example, besides classic game, there is config for 3 players 
 and 5 move options (with extra Spock and Lizard move options).**
 
-You can run 3 players Spock / Lizard config with
+After environment setup (see section below), you can run 3 players Spock / Lizard config with
 
     make run-spock-lizard
 
@@ -31,6 +31,39 @@ If all 3 players have the same score - it's a Draw.
 
 ### Lizard / Spock game rules
 ![Spock Lizard rules](https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Rock_Paper_Scissors_Lizard_Spock_en.svg/1920px-Rock_Paper_Scissors_Lizard_Spock_en.svg.png)
+
+## Architecture explanation
+
+1) Game is implemented as console application
+
+2) No framework dependencies, except composer for autoloading and phpunit 
+
+3) Game is configured via configs in src/config folder. 
+Config name could be passed as parameter to console command.
+
+4) Key Services
+     - `RulesService` - compares two moves and selects a winner of 2
+     
+     - `GameService` - compares all pairs and increments score of player if he wins.
+     Then it groups / sorts players by score so players with highest score have the highest rank.
+     
+     - `GameSeriesService`  - aggregates score per Series of games and ranks players.
+      
+     - `ProbabilityGameplayStrategyService` - selects move using probability config. Both Random and Always Paper strategies use it.  
+
+     - Models folder with models, typed collections, and factories for them
+     
+      - `View` folder for visualisation staff
+      
+       - Some utility classed that run the game like `Controller` and `App`
+       
+## TODOs (what could be done better or not implemented yet)
+  
+  - Not all classes are Unit tested (takes some, time)
+  
+  - In case of framework version, probably its DI modules may be more suitable the hand-made DI in `Controller` and `App`
+
+  - Think more on refactoring Model names - some of them like `PlayerGameScoreGroupedRankedCollection` and `PlayerGameScoreGroupedSortedCollection` semm messy to me. 
 
 ## Game description
 
