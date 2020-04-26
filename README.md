@@ -2,6 +2,17 @@
 
 Php console implementation of rock paper scissors game
 
+## Implementation notes
+
+**This implementation of the game allows extra functionality 
+for any number of layers and any number of move options.
+For example, besides classic game, there is config for 3 players 
+and 5 move options (with extra Spock and Lizard move options).**
+
+You can run 3 players Spock / Lizard config with
+
+    make run-spock-lizard
+
 ## Game description
 
 In this implementation of the game, two players with different strategies play against each other.

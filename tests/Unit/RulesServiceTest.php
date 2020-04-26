@@ -64,7 +64,7 @@ class RulesServiceTest extends TestCase
      *
      * @test
      */
-    public function testGameSeriesWithDefaultConfigThreeItemsPaperScissors(): void
+    public function testGameServiceWithDefaultConfigThreeItemsScissorsBeatPaper(): void
     {
         $this->init();
 
@@ -91,7 +91,7 @@ class RulesServiceTest extends TestCase
      *
      * @test
      */
-    public function testGameSeriesWithDefaultConfigThreeItemsPaperBeatsRock(): void
+    public function testGameServiceWithDefaultConfigThreeItemsPaperBeatsRock(): void
     {
         $this->init();
 
@@ -118,7 +118,7 @@ class RulesServiceTest extends TestCase
      *
      * @test
      */
-    public function testGameSeriesWithDefaultConfigThreeItemsScissorsRock(): void
+    public function testGameServiceWithDefaultConfigThreeItemsRockBeatsScissors(): void
     {
         $this->init();
 
@@ -145,7 +145,7 @@ class RulesServiceTest extends TestCase
      *
      * @test
      */
-    public function testGameSeriesWithFiveItemsConfigSpockBeatsSpock(): void
+    public function testGameServiceWithFiveItemsConfigSpockBeatsSpock(): void
     {
         $this->init();
 
@@ -172,7 +172,7 @@ class RulesServiceTest extends TestCase
      *
      * @test
      */
-    public function testGameSeriesWithFiveItemsConfigSpockBeatsPaper(): void
+    public function testGameServiceWithFiveItemsConfigSpockBeatsPaper(): void
     {
         $this->init();
 

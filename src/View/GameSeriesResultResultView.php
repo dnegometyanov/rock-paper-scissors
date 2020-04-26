@@ -35,15 +35,15 @@ class GameSeriesResultResultView implements GameSeriesResultViewInterface
         $gamesView = '';
         foreach($playerGameSeriesGamesCollection->toArray() as $gameNumber => $playerGameScoreGroupedRankedCollection) {
             /** @var PlayerGameScoreGroupedRankedCollection $playerGameScoreGroupedRankedCollection */
-            $gamesView .= sprintf("\n      Game %s:\n ", $gameNumber + 1);
+            $gamesView .= sprintf("      Game %s:\n ", $gameNumber + 1);
 
             $isDraw = $playerGameScoreGroupedRankedCollection->getCount() === 1;
 
             foreach($playerGameScoreGroupedRankedCollection->toArray() as $gameRank => $playersOfRank) {
                 if ($isDraw) {
-                    $gamesView .= sprintf("\n            Draw: \n");
+                    $gamesView .= sprintf("            Draw: \n");
                 } else {
-                    $gamesView .= sprintf("\n            Place %s: \n", $gameRank + 1);
+                    $gamesView .= sprintf("            Place %s: \n", $gameRank + 1);
                 }
 
                 foreach ($playersOfRank as $playerGameScore) {
@@ -65,7 +65,7 @@ class GameSeriesResultResultView implements GameSeriesResultViewInterface
     {
         $rankSummaryView = '';
         foreach($playerGameSeriesScoreGroupedRankedCollection->toArray() as $rank => $playersGameSeriesScoreOfRank) {
-            $rankSummaryView .= sprintf("\n      Place %s: \n ", $rank + 1);
+            $rankSummaryView .= sprintf("\n      Place %s: \n", $rank + 1);
 
             foreach($playersGameSeriesScoreOfRank as $playerGameSeriesScore) {
                 /** @var PlayerGameSeriesScore $playerGameSeriesScore */

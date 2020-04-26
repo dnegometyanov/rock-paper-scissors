@@ -7,6 +7,7 @@ use Game\Model\GameSeriesResult\GameSeriesResult;
 use Game\Model\PlayerGameScore\PlayerGameScore;
 use Game\Model\PlayerGameScore\PlayerGameScoreGroupedRankedCollection;
 use GameTest\Functional\Config\ConfigDefaultTwoPlayersRockPaperScissors;
+use GameTest\Functional\Config\ConfigThreePlayersFiveItemsRockPaperScissorsSpockLizard;
 use GameTest\Functional\Config\ConfigTwoPlayersPlayerBAlwaysWinsSeriesOfTwoGames;
 use PHPUnit\Framework\TestCase;
 
@@ -57,5 +58,20 @@ class AppTest extends TestCase
 
         $this->assertEquals('Player A', $result->getPlayerGameSeriesGamesCollection()->toArray()[0]->toArray()[1][0]->getMove()->getPlayer()->getName());
         $this->assertEquals(0, $result->getPlayerGameSeriesGamesCollection()->toArray()[0]->toArray()[1][0]->getScore());
+    }
+
+    /**
+     * Test with 5 items and 3 players config (Spock-lizard)
+     *
+     * @test
+     */
+    public function testGameSeriesWithFiveItemsThreePlayersConfig(): void
+    {
+        $app    = new App(new ConfigThreePlayersFiveItemsRockPaperScissorsSpockLizard());
+        $result = $app->runGameSeries();
+
+        $this->assertInstanceOf(GameSeriesResult::class, $result);
+        $this->assertCount(3, $result->getPlayerGameSeriesScoreGroupedRankedCollection()->toArray());
+        $this->assertCount(100, $result->getPlayerGameSeriesGamesCollection()->toArray());
     }
 }

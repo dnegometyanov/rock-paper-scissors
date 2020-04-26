@@ -17,9 +17,13 @@ copy-dist-configs:
 dump-autoload:
 	@docker-compose run --rm --no-deps php-cli composer dump-autoload
 
-## Run console application
+## Run default game (2 players 3 moves)
 run:
 	@docker-compose run --rm --no-deps php-cli php src/index.php
+
+## Run game for 3 players and 5 moves (Spock and Lizard added)
+run-spock-lizard:
+	@docker-compose run --rm --no-deps php-cli php src/index.php --config="ConfigFiveMovesThreePlayers"
 
 ## Run unit tests
 unit-tests:
