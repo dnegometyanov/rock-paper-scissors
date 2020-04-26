@@ -25,6 +25,11 @@ run:
 run-spock-lizard:
 	@docker-compose run --rm --no-deps php-cli php src/index.php --config="ConfigFiveMovesThreePlayers"
 
+## Run all tests
+all-tests:
+	make unit-tests
+	make functional-tests
+
 ## Run unit tests
 unit-tests:
 	@docker-compose run --rm --no-deps php-cli ./vendor/bin/phpunit --no-coverage --stop-on-error --stop-on-failure --testsuite Unit

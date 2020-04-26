@@ -24,6 +24,6 @@ return PhpCsFixer\Config::create()
                    'phpdoc_order'                  => true,
                    'phpdoc_separation'             => true,
                    'blank_line_after_namespace'    => true,
-    ])
+               ])
     ->setFinder($finder)
     ->setUsingCache(true);

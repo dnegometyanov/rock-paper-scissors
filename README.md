@@ -61,6 +61,8 @@ Config name could be passed as parameter to console command (see `Makefile` for 
   
   - Not all classes are Unit tested (takes some time)
   
+  - To create builders for tests
+  
   - In case of framework version, probably its DI modules may be more suitable the hand-made DI in `Controller` and `App`
 
   - Think more on refactoring Model names - some of them like `PlayerGameScoreGroupedRankedCollection` and `PlayerGameScoreGroupedSortedCollection` semm messy to me. 
@@ -107,11 +109,27 @@ Runs container and executes console application.
 
     make run
 
+Runs container and executes version for 5 items and 3 players (Spock / Lizard version)
+
+    make run-spock-lizard
+
+## Run all tests
+
+Runs container and executes all tests.
+
+    make all-tests
+    
 ## Run unit tests
 
 Runs container and executes unit tests.
 
     make unit-tests
+
+## Run functional tests
+
+Runs container and executes functional tests.
+
+    make functional-tests
 
 ## Static analysis
 
