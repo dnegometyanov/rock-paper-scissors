@@ -9,6 +9,8 @@ for any number of layers and any number of move options.
 For example, besides classic game, there is config for 3 players 
 and 5 move options (with extra Spock and Lizard move options).**
 
+![Spock Lizard rules](https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Rock_Paper_Scissors_Lizard_Spock_en.svg/1920px-Rock_Paper_Scissors_Lizard_Spock_en.svg.png)
+
 You can run 3 players Spock / Lizard config with
 
     make run-spock-lizard
