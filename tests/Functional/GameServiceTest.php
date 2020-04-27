@@ -90,14 +90,21 @@ class GameServiceTest extends TestCase
         $result = $gameService->play();
 
         $this->assertCount(2, $result->toArray());
-        $this->assertInstanceOf(PlayerGameScore::class, $result->toArray()[0][0]);
 
-        $this->assertEquals('Player A', $result->toArray()[0][0]->getMove()->getPlayer()->getName());
-        $this->assertEquals('Paper', $result->toArray()[0][0]->getMove()->getMoveOption()->getName());
-        $this->assertEquals(1, $result->toArray()[0][0]->getScore());
+        /** @var PlayerGameScore $firstRankPlayerGameScore */
+        $firstRankPlayerGameScore = $result->toArray()[0][0];
 
-        $this->assertEquals('Player B', $result->toArray()[1][0]->getMove()->getPlayer()->getName());
-        $this->assertEquals('Rock', $result->toArray()[1][0]->getMove()->getMoveOption()->getName());
-        $this->assertEquals(0, $result->toArray()[1][0]->getScore());
+        $this->assertInstanceOf(PlayerGameScore::class, $firstRankPlayerGameScore);
+        $this->assertEquals('Player A', $firstRankPlayerGameScore->getMove()->getPlayer()->getName());
+        $this->assertEquals('Paper', $firstRankPlayerGameScore->getMove()->getMoveOption()->getName());
+        $this->assertEquals(1, $firstRankPlayerGameScore->getScore());
+
+        /** @var PlayerGameScore $firstRankPlayerGameScore */
+        $secondRankPlayerGameScore = $result->toArray()[1][0];
+
+        $this->assertInstanceOf(PlayerGameScore::class, $secondRankPlayerGameScore);
+        $this->assertEquals('Player B', $secondRankPlayerGameScore->getMove()->getPlayer()->getName());
+        $this->assertEquals('Rock', $secondRankPlayerGameScore->getMove()->getMoveOption()->getName());
+        $this->assertEquals(0, $secondRankPlayerGameScore->getScore());
     }
 }
