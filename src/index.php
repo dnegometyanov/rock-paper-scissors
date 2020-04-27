@@ -2,33 +2,7 @@
 
 namespace Game;
 
-use Game\View\GameSeriesResultViewFactory;
-use Game\View\Renderer;
-
 require 'vendor/autoload.php';
 
-try {
-    $shortOps = 'c::';
-
-    $longOpts = [
-        'config::',
-    ];
-
-    $options = getopt($shortOps, $longOpts);
-
-    $configClassName = empty($options['config'])
-        ? 'Game\Config\Config'
-        : sprintf('Game\Config\%s', $options['config']);
-
-    $app = new App(new $configClassName);
-
-    $controller = new Controller(
-        $app,
-        new GameSeriesResultViewFactory(),
-        new Renderer()
-    );
-
-    $controller->showGameSeriesResult();
-} catch (\Exception $e){
-    echo $e->getMessage();
-}
+$app = new AppRunner();
+$app->run();
