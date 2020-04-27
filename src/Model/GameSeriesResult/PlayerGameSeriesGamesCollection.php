@@ -7,7 +7,7 @@ use Game\Model\PlayerGameScore\PlayerGameScoreGroupedRankedCollection;
 class PlayerGameSeriesGamesCollection
 {
     /**
-     * @var PlayerGameSeriesScore[]
+     * @var PlayerGameScoreGroupedRankedCollection[]
      */
     private array $playersGames;
 
