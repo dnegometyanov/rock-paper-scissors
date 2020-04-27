@@ -65,9 +65,9 @@ Config name could be passed as parameter to console command (see `Makefile` for 
   
   - To create builders for tests
   
-  - In case of framework version, probably its DI modules may be more suitable, than hand-made DI in `Controller` and `App`
+  - In case of implementations as framework version, probably framework's DI modules may be more suitable, than hand-made DI in `Controller` and `App` as well as some validation staff
 
-  - Think more on refactoring Model names - some of them like `PlayerGameScoreGroupedRankedCollection` and `PlayerGameScoreGroupedSortedCollection` semm messy to me. 
+  - Think more on refactoring Model names - some of them like `PlayerGameScoreGroupedRankedCollection` and `PlayerGameScoreGroupedSortedCollection` seem messy to me. 
 
 ## Game description
 
