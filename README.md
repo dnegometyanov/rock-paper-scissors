@@ -61,9 +61,11 @@ Config name could be passed as parameter to console command (see `Makefile` for 
   
   - Not all classes are Unit tested (takes some time)
   
+   - GameService / GameSeriesService are hard to mock for unit testing 
+  
   - To create builders for tests
   
-  - In case of framework version, probably its DI modules may be more suitable the hand-made DI in `Controller` and `App`
+  - In case of framework version, probably its DI modules may be more suitable, than hand-made DI in `Controller` and `App`
 
   - Think more on refactoring Model names - some of them like `PlayerGameScoreGroupedRankedCollection` and `PlayerGameScoreGroupedSortedCollection` semm messy to me. 
 
